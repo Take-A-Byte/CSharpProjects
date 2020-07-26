@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MessagingViews">
+    <SolidColorBrush x:Key="Background">#2F3331</SolidColorBrush>
+    <SolidColorBrush x:Key="FontColor">#F4F0EC</SolidColorBrush>
+    <SolidColorBrush x:Key="Panel1">#3E4A49</SolidColorBrush>
+    <SolidColorBrush x:Key="Panel2">#4E5553</SolidColorBrush>
+    <SolidColorBrush x:Key="MyMessageColor">#2C8499</SolidColorBrush>
+    <SolidColorBrush x:Key="TheirMessageColor">#61B0A7</SolidColorBrush>
+
+
+    <ControlTemplate x:Key="TheirMessageTemplate">
+        <Grid>
+            <Rectangle RadiusX="7.5" RadiusY="7.5" Height="15" Width="15"
+                       HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                       Margin="4,0,0,3" Fill="#508687"/>
+            <Border Background="#508687"
+                    Height="54" Width="229" Margin="6,8,0,5"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    CornerRadius="7"/>
+            <Border Background="{StaticResource TheirMessageColor}" 
+                    Height="50" Width="225" Margin="8,10,0,5"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    CornerRadius="7"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="MyMessageTemplate">
+        <Grid>
+            <Rectangle RadiusX="7.5" RadiusY="7.5" Height="15" Width="15" Fill="#3091a8"
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                       Margin="0,0,4,3"/>
+            <Border Background="#3091a8" 
+                            Height="54" Width="229" Margin="0,5,6,5"
+                            HorizontalAlignment="Right" VerticalAlignment="Top"
+                            CornerRadius="7"/>
+            <Border Background="{StaticResource MyMessageColor}" 
+                            Height="50" Width="225" Margin="0,7,8,5"
+                            HorizontalAlignment="Right" VerticalAlignment="Top"
+                            CornerRadius="7"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Separator">
+        <Rectangle Fill="White"/>
+    </ControlTemplate>
+</ResourceDictionary>
