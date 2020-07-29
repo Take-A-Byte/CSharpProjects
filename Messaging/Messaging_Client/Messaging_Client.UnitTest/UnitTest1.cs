@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Messaging.UnitTest
+namespace Messaging_Client.UnitTest
 {
     [TestClass]
     public class UnitTest1

@@ -2,18 +2,18 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Messaging.UnitTest")]
+[assembly: AssemblyTitle("Messaging_Client.UnitTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Messaging.UnitTest")]
+[assembly: AssemblyProduct("Messaging_Client.UnitTest")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("42cd0773-9255-4a91-83b6-02c08d0df54f")]
+[assembly: Guid("c8ec4e3d-fb33-41f7-9ecb-b059f51ada4d")]
 
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
