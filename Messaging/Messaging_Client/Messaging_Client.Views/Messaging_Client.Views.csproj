@@ -98,5 +98,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Messaging_Client.ViewModels\Messaging_Client.ViewModels.csproj">
+      <Project>{0959b0fa-825d-4dce-a6dc-f876b2722bfd}</Project>
+      <Name>Messaging_Client.ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
