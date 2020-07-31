@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Core", "Me
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.UnitTest", "Messaging_Client.UnitTest\Messaging_Client.UnitTest.csproj", "{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Interfaces", "Messaging_Client.Interfaces\Messaging_Client.Interfaces.csproj", "{C25721B2-8D4D-4A42-8805-F72DEB435F7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C25721B2-8D4D-4A42-8805-F72DEB435F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C25721B2-8D4D-4A42-8805-F72DEB435F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C25721B2-8D4D-4A42-8805-F72DEB435F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C25721B2-8D4D-4A42-8805-F72DEB435F7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,8 @@
-﻿namespace Messaging.ViewModels
+﻿namespace Messaging_Client.ViewModels
 {
     using System.ComponentModel;
 
-    internal class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
         #region Public Events
 

@@ -42,6 +42,9 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\Dependencies\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Messaging.ViewModels.Fakes">
+      <HintPath>FakesAssemblies\Messaging.ViewModels.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\Dependencies\MSTest.TestFramework.2.1.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -70,6 +73,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Messaging_Client.Core\Messaging_Client.Core.csproj">
+      <Project>{eb13e8d8-6745-4cde-90cf-07f95e89911c}</Project>
+      <Name>Messaging_Client.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messaging_Client.Interfaces\Messaging_Client.Interfaces.csproj">
+      <Project>{c25721b2-8d4d-4a42-8805-f72deb435f7b}</Project>
+      <Name>Messaging_Client.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messaging_Client.Models\Messaging_Client.Models.csproj">
+      <Project>{b9e45fb7-3065-4c5a-a772-497909d06d32}</Project>
+      <Name>Messaging_Client.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Messaging_Client.ViewModels\Messaging_Client.ViewModels.csproj">
       <Project>{0959b0fa-825d-4dce-a6dc-f876b2722bfd}</Project>
       <Name>Messaging_Client.ViewModels</Name>

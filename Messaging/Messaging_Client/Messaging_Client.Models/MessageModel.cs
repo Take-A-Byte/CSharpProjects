@@ -1,11 +1,25 @@
-﻿namespace Messaging.Models
+﻿namespace Messaging_Client.Models
 {
-    public class MessageModel
+    using Messaging_Client.Interfaces;
+
+    public class MessageModel : IMessageModel
     {
+        #region Public Constructors
+
+        public MessageModel(string message)
+        {
+            Message = message;
+            Time = System.DateTime.Now;
+        }
+
+        #endregion Public Constructors
+
         #region public Properties
+
         public string Message { get; }
 
         public System.DateTime Time { get; }
-        #endregion
+
+        #endregion public Properties
     }
 }

@@ -53,10 +53,10 @@
         <Button x:Name="SendButton"
                 Command="{Binding SendMessageCommand}" Grid.Row="4"
                 Content="S" Width="40" Height="36" Margin="6,0"
-                HorizontalAlignment="Right">
+                HorizontalAlignment="Right" Focusable="False">
             <Button.Style>
                 <Style TargetType="Button">
-                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="FontSize" Value="18" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="Beige" />
