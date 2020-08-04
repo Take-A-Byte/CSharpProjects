@@ -21,16 +21,12 @@
         private static void Main(string[] args)
         {
             string hostName = Dns.GetHostName(); // Retrive the Name of HOST
-            IPAddress myIP = IPAddress.Parse(Dns.GetHostByName(hostName).AddressList[0].ToString());
+            IPAddress myIP = IPAddress.Parse(Dns.GetHostEntry(hostName).AddressList[0].ToString());
 
             Int32 port = 4000;
             server = new TcpListener(myIP, port);
 
             server.Start();
-
-            // Buffer for reading data
-            Byte[] bytes = new Byte[256];
-            String data = null;
 
             BackgroundWorker acceptClientWorker = new BackgroundWorker();
             acceptClientWorker.DoWork += AcceptClientWorker_DoWork;
@@ -43,10 +39,6 @@
 
         private static void AcceptClientWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            // Buffer for reading data
-            Byte[] bytes = new Byte[256];
-            String data = null;
-
             while (true)
             {
                 Console.Write("Waiting for a connection... ");
