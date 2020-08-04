@@ -2,7 +2,7 @@
 {
     using Messaging_Client.Interfaces;
 
-    public class MessageModel : IMessageModel
+    public class MessageModel : IMessage
     {
         #region Public Constructors
 
@@ -19,6 +19,13 @@
         public string Message { get; }
 
         public System.DateTime Time { get; }
+
+        public IOwner Owner { get; }
+
+        public byte[] ToByte()
+        {
+            throw new System.NotImplementedException();
+        }
 
         #endregion public Properties
     }

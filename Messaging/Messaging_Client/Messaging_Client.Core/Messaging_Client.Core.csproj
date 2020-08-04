@@ -41,7 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ISocket.cs" />
+    <Compile Include="MessagingClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TCPClientSocket.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Messaging_Client.Interfaces\Messaging_Client.Interfaces.csproj">
+      <Project>{c25721b2-8d4d-4a42-8805-f72deb435f7b}</Project>
+      <Name>Messaging_Client.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

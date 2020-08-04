@@ -1,11 +1,14 @@
 ﻿namespace Messaging_Client.Interfaces
 {
-    public interface IMessageModel
+    using System;
+
+    public interface IOwner
     {
         #region Public Properties
 
-        string Message { get; }
-        System.DateTime Time { get; }
+        string Name { get; }
+
+        string UserName { get; }
 
         #endregion Public Properties
     }

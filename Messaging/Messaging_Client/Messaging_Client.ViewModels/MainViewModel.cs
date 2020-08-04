@@ -20,7 +20,7 @@
         public MainViewModel()
         {
             newMessageText = String.Empty;
-            Messages = new ObservableCollection<IMessageModel>();
+            Messages = new ObservableCollection<IMessage>();
             InitializeCommands();
         }
 
@@ -28,7 +28,7 @@
 
         #region Public Properties
 
-        public ObservableCollection<IMessageModel> Messages { get; set; }
+        public ObservableCollection<IMessage> Messages { get; set; }
 
         public string NewMessageText
         {
@@ -57,7 +57,7 @@
         {
             if (!String.IsNullOrWhiteSpace(NewMessageText))
             {
-                IMessageModel newMessage = new MessageModel(NewMessageText);
+                IMessage newMessage = new MessageModel(NewMessageText);
                 Messages.Add(newMessage);
             }
         }

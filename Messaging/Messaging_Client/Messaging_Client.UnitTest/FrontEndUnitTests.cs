@@ -5,6 +5,10 @@
     using System.Reflection;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Messaging_Client.ViewModels;
+    using System.Net;
+    using System.Net.Sockets;
+    using Messaging_Client.Core;
+    using System.ComponentModel;
 
     [TestClass]
     public class FrontEndUnitTests
@@ -132,6 +136,23 @@
             Assert.AreEqual(1, DateTime.Compare(DateTime.Now, mainVM.Messages[0].Time));
 
             #endregion Assert
+        }
+
+        [TestMethod]
+        public void CheckTCPConnection()
+        {
+            MessagingClient clientObject = new MessagingClient();
+            Assert.IsTrue(clientObject.ConnectToServer());
+            MessagingClient clientObject2 = new MessagingClient();
+            Assert.IsTrue(clientObject2.ConnectToServer());
+            Assert.IsTrue(clientObject.SendMessage(null));
+            Assert.IsTrue(clientObject2.SendMessage(null));
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            MessagingClient clientObject = new MessagingClient();
+            clientObject.ConnectToServer();
         }
 
         #endregion Send Message
