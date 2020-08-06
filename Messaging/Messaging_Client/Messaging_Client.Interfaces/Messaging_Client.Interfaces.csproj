@@ -42,8 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMessage.cs" />
+    <Compile Include="IMessagePacket.cs" />
     <Compile Include="IMessagingClient.cs" />
-    <Compile Include="IOwner.cs" />
+    <Compile Include="IMessagingSocket.cs" />
+    <Compile Include="IPacket.cs" />
+    <Compile Include="IPacketFactory.cs" />
+    <Compile Include="IServiceUser.cs" />
+    <Compile Include="IUsersPacket.cs" />
+    <Compile Include="PacketType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

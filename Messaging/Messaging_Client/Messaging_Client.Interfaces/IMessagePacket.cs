@@ -1,14 +1,10 @@
 ﻿namespace Messaging_Client.Interfaces
 {
-    using System;
-
-    public interface IOwner
+    public interface IMessagePacket : IPacket
     {
         #region Public Properties
 
-        string Name { get; }
-
-        string UserName { get; }
+        IMessage Message { get; }
 
         #endregion Public Properties
     }

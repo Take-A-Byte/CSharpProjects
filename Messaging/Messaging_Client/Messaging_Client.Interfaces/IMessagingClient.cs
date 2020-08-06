@@ -4,7 +4,7 @@
     {
         #region Public Methods
 
-        bool ConnectToServer();
+        bool ConnectToServer(string username);
 
         bool SendMessage(IMessage message);
 

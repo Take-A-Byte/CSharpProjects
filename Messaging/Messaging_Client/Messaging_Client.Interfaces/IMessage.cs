@@ -4,18 +4,12 @@
     {
         #region Public Properties
 
-        IOwner Owner { get; }
+        IServiceUser User { get; }
 
-        string Message { get; }
+        string MessageText { get; }
 
         System.DateTime Time { get; }
 
         #endregion Public Properties
-
-        #region Public Methods
-
-        byte[] ToByte();
-
-        #endregion Public Methods
     }
 }
