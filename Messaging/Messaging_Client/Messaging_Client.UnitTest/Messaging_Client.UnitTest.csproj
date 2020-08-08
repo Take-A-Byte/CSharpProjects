@@ -85,6 +85,10 @@
       <Project>{b9e45fb7-3065-4c5a-a772-497909d06d32}</Project>
       <Name>Messaging_Client.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Messaging_Client.PacketFactory\Messaging_Client.PacketFactory.csproj">
+      <Project>{193E17EF-2C1D-462E-B978-D7CC52F877B7}</Project>
+      <Name>Messaging_Client.PacketFactory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Messaging_Client.ViewModels\Messaging_Client.ViewModels.csproj">
       <Project>{0959b0fa-825d-4dce-a6dc-f876b2722bfd}</Project>
       <Name>Messaging_Client.ViewModels</Name>
