@@ -1,19 +1,20 @@
 ﻿namespace Messaging_Client.PacketFactory.Packets
 {
     using System;
+    using System.Net;
     using Messaging_Client.Interfaces;
 
     internal class User : IServiceUser
     {
         #region Public Constructors
 
-        public User(string name, IMessagingSocket socket)
+        public User(string name, IPEndPoint localEndPoint)
         {
             if (name.Length < 256)
             {
                 LengthOfName = (byte)name.Length;
                 Name = name;
-                MessagingSocket = socket;
+                MessagingSocket = new MessagingSocket(localEndPoint.Address.Address, (uint)localEndPoint.Port);
             }
             else
             {

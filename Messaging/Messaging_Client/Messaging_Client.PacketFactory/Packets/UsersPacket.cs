@@ -49,9 +49,9 @@
                         int lenthOfName = buffer[0];
                         string name = Encoding.ASCII.GetString(buffer, 1, lenthOfName);
                         long ipAddress = BitConverter.ToInt64(buffer, lenthOfName + 1);
-                        uint port = BitConverter.ToUInt32(buffer, lenthOfName + 9);
+                        int port = BitConverter.ToInt32(buffer, lenthOfName + 9);
 
-                        IServiceUser user = new User(name, null);
+                        IServiceUser user = new User(name, new System.Net.IPEndPoint(ipAddress, port));
                         packet = new UsersPacket(user);
                         buffer = buffer.SubArray(lenthOfName + 13);
                     }

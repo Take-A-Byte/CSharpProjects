@@ -137,6 +137,19 @@
             #endregion Assert
         }
 
+        [TestMethod]
+        public void CheckTCPConnection()
+        {
+            PacketFactory packetFactory = new PacketFactory();
+
+            MessagingClient clientObject = new MessagingClient(packetFactory);
+            Assert.IsTrue(clientObject.ConnectToServer("user1"));
+            MessagingClient clientObject2 = new MessagingClient(packetFactory);
+            Assert.IsTrue(clientObject2.ConnectToServer("user2"));
+            Assert.IsTrue(clientObject.SendMessage(null));
+            Assert.IsTrue(clientObject2.SendMessage(null));
+        }
+
         #endregion Send Message
 
         #endregion Public Methods

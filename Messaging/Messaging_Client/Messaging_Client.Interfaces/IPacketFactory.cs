@@ -1,6 +1,7 @@
 ﻿namespace Messaging_Client.PacketFactory
 {
     using Messaging_Client.Interfaces;
+    using System.Net;
 
     public interface IPacketFactory
     {
@@ -8,7 +9,7 @@
 
         IPacket CreateMessagePacket(IMessage message);
 
-        IPacket CreateUserPacket(string userName, IMessagingSocket socket);
+        IPacket CreateUserPacket(string userName, IPEndPoint loaclEndPoint);
 
         IPacket HandlePacket(byte[] buffer);
 

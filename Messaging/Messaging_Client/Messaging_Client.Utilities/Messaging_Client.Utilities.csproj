@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DDA2ACF4-0956-42FE-AE2F-D91820224A65}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Messaging_Server</RootNamespace>
-    <AssemblyName>Messaging_Server</AssemblyName>
+    <ProjectGuid>{E1E32D78-EE9D-485A-8089-87B5DA923EBB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Messaging_Client.Utilities</RootNamespace>
+    <AssemblyName>Messaging_Client.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Messaging_Client.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Messaging_Client\Messaging_Client.Utilities\bin\Debug\Messaging_Client.Utilities.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,20 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ExtensionFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Messaging_Client\Messaging_Client.Interfaces\Messaging_Client.Interfaces.csproj">
+    <ProjectReference Include="..\Messaging_Client.Interfaces\Messaging_Client.Interfaces.csproj">
       <Project>{C25721B2-8D4D-4A42-8805-F72DEB435F7B}</Project>
       <Name>Messaging_Client.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Messaging_Client\Messaging_Client.PacketFactory\Messaging_Client.PacketFactory.csproj">
-      <Project>{193E17EF-2C1D-462E-B978-D7CC52F877B7}</Project>
-      <Name>Messaging_Client.PacketFactory</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

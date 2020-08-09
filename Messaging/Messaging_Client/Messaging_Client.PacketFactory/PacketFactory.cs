@@ -1,6 +1,7 @@
 ﻿using Messaging.Models;
 using Messaging_Client.Interfaces;
 using Messaging_Client.PacketFactory.Packets;
+using System.Net;
 
 namespace Messaging_Client.PacketFactory
 {
@@ -13,9 +14,9 @@ namespace Messaging_Client.PacketFactory
             return null;
         }
 
-        public IPacket CreateUserPacket(string userName, IMessagingSocket socket)
+        public IPacket CreateUserPacket(string userName, IPEndPoint localEndPoint)
         {
-            return new UsersPacket(new User(userName, socket));
+            return new UsersPacket(new User(userName, localEndPoint));
         }
 
         public IPacket HandlePacket(byte[] buffer)

@@ -4,6 +4,7 @@
     using System.Net;
     using System.Net.Sockets;
     using Messaging.Core.Interfaces;
+    using Messaging_Client.Interfaces;
 
     internal class TCPClientSocket : ISocket
     {
@@ -12,6 +13,18 @@
         private TcpClient client;
 
         #endregion Private Fields
+
+        #region Public Properties
+
+        public IPEndPoint IPEndPoint => (IPEndPoint)client.Client.LocalEndPoint;
+
+        #endregion Public Properties
+
+        #region Public Events
+
+        public event EventHandler ReceivedData;
+
+        #endregion Public Events
 
         #region Public Methods
 
@@ -22,17 +35,12 @@
                 client = new TcpClient();
                 client.Connect(serverEndPoint);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 return false;
             }
 
             return true;
-        }
-
-        public byte[] ReceiveData()
-        {
-            throw new System.NotImplementedException();
         }
 
         public bool SendData(byte[] buffer)
@@ -42,13 +50,13 @@
                 try
                 {
                     NetworkStream stream = client.GetStream();
-                    string message = ((IPEndPoint)client.Client.LocalEndPoint).Address.ToString();
-                    message += '.' + ((IPEndPoint)client.Client.LocalEndPoint).Port.ToString();
-                    Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
-                    stream.Write(data, 0, data.Length);
+                    //string message = ((IPEndPoint)client.Client.LocalEndPoint).Address.ToString();
+                    //message += '.' + ((IPEndPoint)client.Client.LocalEndPoint).Port.ToString();
+                    //Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                    stream.Write(buffer, 0, buffer.Length);
                     return true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return false;
                 }
@@ -73,15 +81,21 @@
             return true;
         }
 
-        private static int FreeTcpPort()
+        #endregion Public Methods
+
+        #region Private Methods
+
+        private void StartListening()
         {
-            TcpListener l = new TcpListener(IPAddress.Loopback, 0);
-            l.Start();
-            int port = ((IPEndPoint)l.LocalEndpoint).Port;
-            l.Stop();
-            return port;
+            NetworkStream stream = client.GetStream();
+
+            while (client.Connected)
+            {
+                byte[] buffer = new byte[1024];
+                stream.Read(buffer, 0, buffer.Length);
+            }
         }
 
-        #endregion Public Methods
+        #endregion Private Methods
     }
 }

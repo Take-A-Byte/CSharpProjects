@@ -5,7 +5,6 @@
     using System.Windows.Input;
     using Messaging.ViewModels.Utilities;
     using Messaging_Client.Interfaces;
-    using Messaging_Client.Models;
 
     public class MainViewModel : BaseViewModel
     {
@@ -57,8 +56,8 @@
         {
             if (!String.IsNullOrWhiteSpace(NewMessageText))
             {
-                IMessage newMessage = new MessageModel(NewMessageText);
-                Messages.Add(newMessage);
+                //IMessage newMessage = new MessageModel(NewMessageText);
+                //Messages.Add(newMessage);
             }
         }
 

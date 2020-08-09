@@ -1,18 +1,23 @@
 ﻿namespace Messaging_Server
 {
+    using Messaging_Client.Interfaces;
+    using Messaging_Client.PacketFactory;
+    using Messaging_Client.Utilities;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Net;
     using System.Net.Sockets;
     using System.Threading.Tasks;
+    using System.Linq;
 
     internal class Program
     {
         #region Private Fields
 
         private static TcpListener server;
-        private static List<TcpClient> clients;
+        private static IPacketFactory packetFactory;
+        private static List<IServiceUser> clients;
 
         #endregion Private Fields
 
@@ -20,8 +25,10 @@
 
         private static void Main(string[] args)
         {
+            packetFactory = new PacketFactory();
+            clients = new List<IServiceUser>();
             string hostName = Dns.GetHostName(); // Retrive the Name of HOST
-            IPAddress myIP = IPAddress.Parse(Dns.GetHostEntry(hostName).AddressList[0].ToString());
+            IPAddress myIP = IPAddress.Parse(Dns.GetHostByName(hostName).AddressList[0].ToString());
 
             Int32 port = 4000;
             server = new TcpListener(myIP, port);
@@ -56,8 +63,6 @@
 
         private static void AcceptMessageWorker_DoWork(TcpClient client)
         {
-            clients.Add(client);
-
             // Buffer for reading data
             Byte[] bytes = new Byte[256];
             String data = null;
@@ -70,9 +75,14 @@
             // Loop to receive all the data sent by the client.
             while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
             {
-                // Translate data bytes to a ASCII string.
-                data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                Console.WriteLine("Received: {0}", data);
+                IPacket packet = packetFactory.HandlePacket(bytes.SubArray(0, i));
+
+                if (packet.Type == PacketType.User)
+                {
+                    // we know that only one user will be registered per client
+                    clients.Add(((IUsersPacket)packet).Users[0]);
+                    Console.WriteLine("\nReceived: Registration for {0}", clients.Last().Name);
+                }
 
                 // Process the data sent by the client.
                 data = data.ToUpper();

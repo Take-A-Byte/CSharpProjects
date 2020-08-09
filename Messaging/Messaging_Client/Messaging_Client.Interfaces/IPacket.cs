@@ -12,8 +12,6 @@
 
         byte[] ToByte();
 
-        bool FromByte(byte[] buffer);
-
         #endregion Public Methods
     }
 }
