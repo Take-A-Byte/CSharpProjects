@@ -3,8 +3,11 @@
     using System;
     using System.Net;
     using System.Net.Sockets;
+    using System.Threading;
     using Messaging.Core.Interfaces;
     using Messaging_Client.Interfaces;
+    using Messaging_Client.Utilities;
+    using static Messaging.Core.MessagingEventArgs;
 
     internal class TCPClientSocket : ISocket
     {
@@ -34,8 +37,9 @@
             {
                 client = new TcpClient();
                 client.Connect(serverEndPoint);
+                new Thread(() => { StartListening(); }).Start();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -92,7 +96,10 @@
             while (client.Connected)
             {
                 byte[] buffer = new byte[1024];
-                stream.Read(buffer, 0, buffer.Length);
+                int length = stream.Read(buffer, 0, buffer.Length);
+
+                ReceivedDataEventArgs args = new ReceivedDataEventArgs(buffer.SubArray(0, length));
+                ReceivedData?.Invoke(this, args);
             }
         }
 

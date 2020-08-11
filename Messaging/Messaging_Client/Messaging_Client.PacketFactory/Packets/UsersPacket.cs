@@ -17,6 +17,12 @@
             Users.Add(user);
         }
 
+        public UsersPacket(List<IServiceUser> users)
+        {
+            Users = new List<IServiceUser>();
+            Users.AddRange(users);
+        }
+
         #endregion Public Constructors
 
         #region Public Properties
@@ -52,7 +58,14 @@
                         int port = BitConverter.ToInt32(buffer, lenthOfName + 9);
 
                         IServiceUser user = new User(name, new System.Net.IPEndPoint(ipAddress, port));
-                        packet = new UsersPacket(user);
+                        if (packet == null)
+                        {
+                            packet = new UsersPacket(user);
+                        }
+                        else
+                        {
+                            ((UsersPacket)packet).Users.Add(user);
+                        }
                         buffer = buffer.SubArray(lenthOfName + 13);
                     }
                     while (byteIndex < buffer.Length);

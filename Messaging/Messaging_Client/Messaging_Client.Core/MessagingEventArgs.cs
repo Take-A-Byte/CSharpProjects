@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class MessagingEventArgs
+    internal static class MessagingEventArgs
     {
         #region Public Classes
 

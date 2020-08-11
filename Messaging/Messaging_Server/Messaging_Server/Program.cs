@@ -82,16 +82,14 @@
                     // we know that only one user will be registered per client
                     clients.Add(((IUsersPacket)packet).Users[0]);
                     Console.WriteLine("\nReceived: Registration for {0}", clients.Last().Name);
+                    Console.Write("Waiting for a connection... ");
+                    var allRegisteredUsers = packetFactory.CreateUserPacket(clients);
+                    byte[] msg = allRegisteredUsers.ToByte();
+
+                    // Send back a response.
+                    stream.Write(msg, 0, msg.Length);
+                    Console.WriteLine("Sent: All registered user list.");
                 }
-
-                // Process the data sent by the client.
-                data = data.ToUpper();
-
-                byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-
-                // Send back a response.
-                stream.Write(msg, 0, msg.Length);
-                Console.WriteLine("Sent: {0}", data);
             }
 
             // Shutdown and end connection

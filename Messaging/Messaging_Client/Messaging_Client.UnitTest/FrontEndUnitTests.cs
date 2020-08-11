@@ -8,6 +8,7 @@
     using Messaging_Client.Core;
     using System.ComponentModel;
     using Messaging_Client.PacketFactory;
+    using System.Threading;
 
     [TestClass]
     public class FrontEndUnitTests
@@ -144,8 +145,13 @@
 
             MessagingClient clientObject = new MessagingClient(packetFactory);
             Assert.IsTrue(clientObject.ConnectToServer("user1"));
+
+            Thread.Sleep(2000);
             MessagingClient clientObject2 = new MessagingClient(packetFactory);
             Assert.IsTrue(clientObject2.ConnectToServer("user2"));
+            while (true)
+            {
+            }
             Assert.IsTrue(clientObject.SendMessage(null));
             Assert.IsTrue(clientObject2.SendMessage(null));
         }

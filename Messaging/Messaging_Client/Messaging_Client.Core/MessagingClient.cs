@@ -6,12 +6,14 @@
     using Messaging_Client.PacketFactory;
     using Messaging_Client.Utilities;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
 
     public class MessagingClient : IMessagingClient
     {
         #region Private Fields
 
+        private string userName;
         private IPacketFactory packetFactory;
         private ISocket clientSocket;
         private List<IServiceUser> serviceUsers;
@@ -22,6 +24,7 @@
 
         public MessagingClient(IPacketFactory packetFactory)
         {
+            serviceUsers = new List<IServiceUser>();
             this.packetFactory = packetFactory;
             clientSocket = new TCPClientSocket();
         }
@@ -32,6 +35,7 @@
 
         public bool ConnectToServer(string userName)
         {
+            this.userName = userName;
             bool successful = false;
 
             string hostName = Dns.GetHostName(); // Retrive the Name of HOST
@@ -63,7 +67,8 @@
 
         public bool SendMessage(IMessage message)
         {
-            return clientSocket.SendData(packetFactory.CreateMessagePacket(message).ToByte());
+            return true;
+            //return clientSocket.SendData(packetFactory.CreateMessagePacket(message).ToByte());
         }
 
         private void ClientSocket_ReceivedData(object sender, System.EventArgs e)
@@ -74,7 +79,7 @@
 
                 if (packet.Type == PacketType.User)
                 {
-                    serviceUsers.AddRange(((IUsersPacket)packet).Users);
+                    serviceUsers.AddRange(((IUsersPacket)packet).Users.Where(user => user.Name != userName).ToList());
                 }
             }
         }
