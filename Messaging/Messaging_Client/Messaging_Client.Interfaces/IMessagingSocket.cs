@@ -13,7 +13,7 @@
         /// <summary>
         /// The port number of the messaging socket.
         /// </summary>
-        uint PortNumber { get; }
+        int PortNumber { get; }
 
         #endregion Public Properties
     }

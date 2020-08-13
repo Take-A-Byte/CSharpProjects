@@ -11,7 +11,7 @@ namespace Messaging_Client.PacketFactory
     {
         #region Public Constructors
 
-        public MessagingSocket(long ipAddress, uint port)
+        public MessagingSocket(long ipAddress, int port)
         {
             IPAddress = ipAddress;
             PortNumber = port;
@@ -23,7 +23,7 @@ namespace Messaging_Client.PacketFactory
 
         public long IPAddress { get; }
 
-        public uint PortNumber { get; }
+        public int PortNumber { get; }
 
         #endregion Public Properties
     }

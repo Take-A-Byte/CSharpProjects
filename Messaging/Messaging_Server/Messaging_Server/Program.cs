@@ -17,7 +17,7 @@
 
         private static TcpListener server;
         private static IPacketFactory packetFactory;
-        private static List<IServiceUser> clients;
+        private static Dictionary<IServiceUser, TcpClient> users;
 
         #endregion Private Fields
 
@@ -26,7 +26,7 @@
         private static void Main(string[] args)
         {
             packetFactory = new PacketFactory();
-            clients = new List<IServiceUser>();
+            users = new Dictionary<IServiceUser, TcpClient>();
             string hostName = Dns.GetHostName(); // Retrive the Name of HOST
             IPAddress myIP = IPAddress.Parse(Dns.GetHostByName(hostName).AddressList[0].ToString());
 
@@ -79,11 +79,13 @@
 
                 if (packet.Type == PacketType.User)
                 {
+                    new Task(() => NotifyUserAdded(packet)).Start();
+
                     // we know that only one user will be registered per client
-                    clients.Add(((IUsersPacket)packet).Users[0]);
-                    Console.WriteLine("\nReceived: Registration for {0}", clients.Last().Name);
+                    users.Add(((IUsersPacket)packet).Users[0], client);
+                    Console.WriteLine("\nReceived: Registration for {0}", users.Last().Key.Name);
                     Console.Write("Waiting for a connection... ");
-                    var allRegisteredUsers = packetFactory.CreateUserPacket(clients);
+                    var allRegisteredUsers = packetFactory.CreateUserPacket(users.Keys.ToList());
                     byte[] msg = allRegisteredUsers.ToByte();
 
                     // Send back a response.
@@ -94,6 +96,25 @@
 
             // Shutdown and end connection
             client.Close();
+        }
+
+        private static void NotifyUserAdded(IPacket packet)
+        {
+            if (packet is IUsersPacket usersPacket)
+            {
+                foreach (var user in users)
+                {
+                    if (user.Key.Name != usersPacket.Users[0].Name)
+                    {
+                        NetworkStream stream = user.Value.GetStream();
+                        byte[] buffer = packet.ToByte();
+                        stream.Write(buffer, 0, buffer.Length);
+
+                        Console.WriteLine("Sent: " + usersPacket.Users[0].Name +
+                            " sent to " + user.Key.Name + ".");
+                    }
+                }
+            }
         }
 
         #endregion Private Methods

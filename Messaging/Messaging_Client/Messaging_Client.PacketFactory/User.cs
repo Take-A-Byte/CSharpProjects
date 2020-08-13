@@ -14,7 +14,7 @@
             {
                 LengthOfName = (byte)name.Length;
                 Name = name;
-                MessagingSocket = new MessagingSocket(localEndPoint.Address.Address, (uint)localEndPoint.Port);
+                MessagingSocket = new MessagingSocket(localEndPoint.Address.Address, localEndPoint.Port);
             }
             else
             {
