@@ -4,8 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasicShapePaint.Views"
+        xmlns:viewModels="clr-namespace:BasicShapePaint.ViewModels;assembly=BasicShapePaint.ViewModels"
+        xmlns:utilities="clr-namespace:BasicShapePaint.Views.Utilities"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Shape Paint" Height="450" Width="800">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="enumValues"
+                            MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="viewModels:ShapeType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <utilities:ShapeTypeToIconConverter x:Key="shapeToIconConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -13,17 +25,16 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <ComboBox IsDropDownOpen="True" Width="55" Padding="10"
-                      Margin="5" HorizontalAlignment="Left">
-                <ComboBoxItem Background="AliceBlue" Padding="10">
-                    <Image Source="Icons/line.png" Width="18" />
-                </ComboBoxItem>
-                <ComboBoxItem Background="AliceBlue" Padding="10">
-                    <Image Source="Icons/rectangle.png" Width="18" />
-                </ComboBoxItem>
-                <ComboBoxItem Background="AliceBlue" Padding="10">
-                    <Image Source="Icons/ellipse.png" Width="18" />
-                </ComboBoxItem>
+            <ComboBox IsDropDownOpen="True" Width="55"
+                      Margin="5" HorizontalAlignment="Left"
+                      ItemsSource="{Binding Source={StaticResource enumValues}}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="36" Height="36">
+                            <Image Source="{Binding .,Converter={StaticResource shapeToIconConverter}}" Width="18"/>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
 
             <Button x:Name="ColorPicker" Margin="5" VerticalAlignment="Stretch" Width="45"

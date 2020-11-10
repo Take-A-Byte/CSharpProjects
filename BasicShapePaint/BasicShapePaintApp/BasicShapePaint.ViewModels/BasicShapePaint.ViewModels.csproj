@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BasicShapePaint.Models\BasicShapePaint.Models.csproj" />
+  </ItemGroup>
+
 </Project>
