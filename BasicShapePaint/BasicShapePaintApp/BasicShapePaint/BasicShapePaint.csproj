@@ -6,4 +6,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BasicShapePaint.Models\BasicShapePaint.Models.csproj" />
+    <ProjectReference Include="..\BasicShapePaint.ViewModels\BasicShapePaint.ViewModels.csproj" />
+    <ProjectReference Include="..\BasicShapePaint.Views\BasicShapePaint.Views.csproj" />
+  </ItemGroup>
+
 </Project>
