@@ -18,17 +18,18 @@ namespace BasicShapePaint.ViewModels
         #region Private Fields
 
         private ICommand mouseDownCommand;
+        private ShapeType selectedShapeType;
 
         #endregion Private Fields
 
-        #region Private Constructors
+        #region Public Constructors
 
-        private MainViewModel()
+        public MainViewModel()
         {
             Shapes = new ObservableCollection<Shape>();
         }
 
-        #endregion Private Constructors
+        #endregion Public Constructors
 
         #region Public Properties
 
@@ -47,7 +48,15 @@ namespace BasicShapePaint.ViewModels
 
         public ObservableCollection<Shape> Shapes { get; }
 
-        public ShapeType SelectedShapeType { get; }
+        public ShapeType SelectedShapeType
+        {
+            get => selectedShapeType;
+            set
+            {
+                selectedShapeType = value;
+                NotifyPropertyChanged(nameof(SelectedShapeType));
+            }
+        }
 
         #endregion Public Properties
 

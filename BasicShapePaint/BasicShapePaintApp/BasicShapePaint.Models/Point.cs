@@ -4,7 +4,7 @@
     {
         #region Public Constructors
 
-        public Point(float x, float y)
+        public Point(double x, double y)
         {
             X = x;
             Y = y;
@@ -14,9 +14,9 @@
 
         #region Public Properties
 
-        public float X { get; }
+        public double X { get; }
 
-        public float Y { get; }
+        public double Y { get; }
 
         #endregion Public Properties
     }

@@ -25,13 +25,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <ComboBox IsDropDownOpen="True" Width="55"
+            <ComboBox Width="55"
                       Margin="5" HorizontalAlignment="Left"
-                      ItemsSource="{Binding Source={StaticResource enumValues}}">
+                      ItemsSource="{Binding Source={StaticResource enumValues}}"
+                      SelectedItem="{Binding SelectedShapeType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="36" Height="36">
-                            <Image Source="{Binding .,Converter={StaticResource shapeToIconConverter}}" Width="18"/>
+                            <Image Source="{Binding .,Converter={StaticResource shapeToIconConverter}}" Width="18" />
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -62,7 +63,8 @@
             </Button>
         </StackPanel>
         <Rectangle Fill="DarkGray" Grid.Row="1" />
-        <Canvas Background="LightGray" Grid.Row="2">
+        <Canvas Background="LightGray" Grid.Row="2"
+                MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove">
         </Canvas>
     </Grid>
 </Window>
