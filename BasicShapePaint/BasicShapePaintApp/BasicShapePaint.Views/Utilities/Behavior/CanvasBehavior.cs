@@ -34,12 +34,12 @@
         {
             if (AssociatedObject.DataContext is IMouseEventHandlerVM handlerVM)
             {
-                AssociatedObject.PreviewMouseLeftButtonDown +=
-                    (s, e) => handlerVM.MouseDownEventHandler(ConvertMouseCoordinate(e));
+                AssociatedObject.PreviewMouseLeftButtonUp +=
+                    (s, e) => handlerVM.LeftMouseUpEventHandler(ConvertMouseCoordinate(e));
                 AssociatedObject.PreviewMouseMove +=
                     (s, e) => handlerVM.MouseMoveEventHandler(ConvertMouseCoordinate(e));
-                AssociatedObject.PreviewMouseLeftButtonUp +=
-                    (s, e) => handlerVM.MouseUpEventHandler(ConvertMouseCoordinate(e));
+                AssociatedObject.PreviewMouseRightButtonUp +=
+                    (s, e) => handlerVM.RightMouseUpEventHandler(ConvertMouseCoordinate(e));
             }
         }
 

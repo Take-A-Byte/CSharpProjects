@@ -23,18 +23,7 @@
         public CanvasViewModel()
         {
             Shapes = new ObservableCollection<Shape>();
-            ViewModelMediator.SelectedShapeChanged += ViewModelMediator_SelectedShapeChanged;
-        }
-
-        private void ViewModelMediator_SelectedShapeChanged()
-        {
-            if (!drawn && firstPoint != null)
-            {
-                Shapes.Remove(Shapes.Last());
-            }
-
-            firstPoint = secondPoint = null;
-            drawn = false;
+            ViewModelMediator.SelectedShapeChanged += () => Reset();
         }
 
         #endregion Public Constructors
@@ -47,15 +36,13 @@
 
         #region Public Methods
 
-        public void MouseDownEventHandler(Point mouseCoordinate)
+        public void LeftMouseUpEventHandler(Point mouseCoordinate)
         {
-            Shape shape;
             if (firstPoint == null)
             {
-                shape = CreateShape();
+                drawn = false;  // new drawing started
+                Shape shape = CreateShape();
                 firstPoint = mouseCoordinate;
-                shape.StrokeThickness = 2;
-                shape.Stroke = ViewModelMediator.SelectedColor;
 
                 if (shape is Line line)
                 {
@@ -63,27 +50,38 @@
                     line.Y1 = firstPoint.Y;
                     line.X2 = firstPoint.X;
                     line.Y2 = firstPoint.Y;
+                    Shapes.Add(shape);
                 }
                 else
                 {
-                    shape.Width = shape.Height = 0;
+                    shape.Width = 0;
+                    shape.Height = 2;
                     shape.RenderTransform = new TranslateTransform(firstPoint.X, firstPoint.Y);
-                }
+                    Shapes.Add(shape);
 
-                Shapes.Add(shape);
+                    Line tempShape = CreateShape(ShapeType.Line) as Line;
+                    tempShape.X1 = firstPoint.X;
+                    tempShape.Y1 = firstPoint.Y;
+                    tempShape.X2 = firstPoint.X;
+                    tempShape.Y2 = firstPoint.Y;
+                    Shapes.Add(tempShape);
+                }
             }
             else if (secondPoint == null)
             {
-                shape = Shapes.Last();
                 secondPoint = mouseCoordinate;
-                if (shape is Line line)
+                if (ViewModelMediator.SelectedShapeType == ShapeType.Line)
                 {
-                    line.X2 = secondPoint.X;
-                    line.Y2 = secondPoint.Y;
+                    Shape shape = Shapes.Last();
+                    (Shapes.Last() as Line).X2 = secondPoint.X;
+                    (Shapes.Last() as Line).Y2 = secondPoint.Y;
                     drawn = true;
+                    firstPoint = secondPoint = null;
                 }
                 else
                 {
+                    Shapes.Remove(Shapes.Last());
+                    Shape shape = Shapes.Last();
                     var angle = Math.Atan((secondPoint.Y - firstPoint.Y) / (secondPoint.X - firstPoint.X));
                     var rotate = new RotateTransform(angle * 180 / 3.14);
                     rotate.CenterX = (firstPoint.X + secondPoint.X) / 2;
@@ -93,13 +91,16 @@
             }
             else
             {
+                Shape shape = Shapes.Last();
                 drawn = true;
+                firstPoint = secondPoint = null;
+                shape.Fill = ViewModelMediator.SelectedColor;
             }
         }
 
-        public void MouseUpEventHandler(Point mouseCoordinate)
+        public void RightMouseUpEventHandler(Point mouseCoordinate)
         {
-            int a = 0;
+            Reset();
         }
 
         public void MouseMoveEventHandler(Point mouseCoordinate)
@@ -108,10 +109,10 @@
             {
                 var shape = Shapes.Last();
 
-                if (shape is Line && firstPoint != null)
+                if (shape is Line line && firstPoint != null)
                 {
-                    (Shapes.Last() as Line).X2 = mouseCoordinate.X;
-                    (Shapes.Last() as Line).Y2 = mouseCoordinate.Y;
+                    line.X2 = mouseCoordinate.X;
+                    line.Y2 = mouseCoordinate.Y;
                 }
                 else if (secondPoint != null)
                 {
@@ -166,14 +167,30 @@
 
         #region Private Methods
 
-        private Shape CreateShape()
+        private Shape CreateShape(ShapeType? type = null)
         {
-            return ViewModelMediator.SelectedShapeType switch
+            ShapeType shapeType = type ?? ViewModelMediator.SelectedShapeType;
+            Shape shape = shapeType switch
             {
                 ShapeType.Rectangle => new Rectangle(),
                 ShapeType.Ellipse => new Ellipse(),
                 ShapeType.Line => new Line()
             };
+
+            shape.StrokeThickness = 2;
+            shape.Stroke = ViewModelMediator.SelectedColor;
+            return shape;
+        }
+
+        private void Reset()
+        {
+            if (!drawn && firstPoint != null)
+            {
+                Shapes.Remove(Shapes.Last());
+            }
+
+            firstPoint = secondPoint = null;
+            drawn = false;
         }
 
         #endregion Private Methods

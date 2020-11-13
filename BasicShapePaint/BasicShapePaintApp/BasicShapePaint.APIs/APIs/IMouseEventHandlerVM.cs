@@ -4,9 +4,9 @@
     {
         #region Public Methods
 
-        void MouseDownEventHandler(Point mouseCoordinate);
+        void LeftMouseUpEventHandler(Point mouseCoordinate);
 
-        void MouseUpEventHandler(Point mouseCoordinate);
+        void RightMouseUpEventHandler(Point mouseCoordinate);
 
         void MouseMoveEventHandler(Point mouseCoordinate);
 
