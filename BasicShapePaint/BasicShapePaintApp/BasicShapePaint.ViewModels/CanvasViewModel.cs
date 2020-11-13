@@ -100,6 +100,7 @@
                 Shape shape = Shapes.Last();
                 ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.DrawingEnded);
                 shape.Fill = ViewModelMediator.SelectedColor;
+                shape.Stroke = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                 shape.MouseDown += Shape_MouseDown;
             }
         }
