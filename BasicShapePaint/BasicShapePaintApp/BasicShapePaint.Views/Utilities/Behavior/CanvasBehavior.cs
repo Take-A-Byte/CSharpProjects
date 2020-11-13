@@ -1,6 +1,6 @@
 ﻿namespace BasicShapePaint.Views.Utilities.Behavior
 {
-    using BasicShapePaint.APIs;
+    using BasicShapePaint.Utilities.APIs;
     using System.Windows;
     using System.Windows.Interactivity;
 
@@ -34,10 +34,19 @@
         {
             if (AssociatedObject.DataContext is IMouseEventHandlerVM handlerVM)
             {
-                AssociatedObject.PreviewMouseLeftButtonDown += handlerVM.MouseDownEventHandler;
-                AssociatedObject.PreviewMouseMove += handlerVM.MouseMoveEventHandler;
-                AssociatedObject.PreviewMouseLeftButtonUp += handlerVM.MouseUpEventHandler;
+                AssociatedObject.PreviewMouseLeftButtonDown +=
+                    (s, e) => handlerVM.MouseDownEventHandler(ConvertMouseCoordinate(e));
+                AssociatedObject.PreviewMouseMove +=
+                    (s, e) => handlerVM.MouseMoveEventHandler(ConvertMouseCoordinate(e));
+                AssociatedObject.PreviewMouseLeftButtonUp +=
+                    (s, e) => handlerVM.MouseUpEventHandler(ConvertMouseCoordinate(e));
             }
+        }
+
+        private BasicShapePaint.Utilities.Point ConvertMouseCoordinate(System.Windows.Input.MouseEventArgs e)
+        {
+            return new BasicShapePaint.Utilities.Point(
+                e.GetPosition(AssociatedObject).X, e.GetPosition(AssociatedObject).Y);
         }
 
         #endregion Private Methods

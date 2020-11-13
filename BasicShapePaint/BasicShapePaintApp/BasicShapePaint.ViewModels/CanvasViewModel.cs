@@ -6,14 +6,15 @@
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using BasicShapePaint.APIs;
+    using BasicShapePaint.Utilities.APIs;
+    using BasicShapePaint.Utilities;
 
     internal class CanvasViewModel : BaseViewModel, IMouseEventHandlerVM
     {
         #region Private Fields
 
-        private BasicShapePaint.Models.Point startPoint;
-        private BasicShapePaint.Models.Point secondPoint;
+        private Point startPoint;
+        private Point secondPoint;
         private bool drawn;
 
         #endregion Private Fields
@@ -35,14 +36,13 @@
 
         #region Public Methods
 
-        public void MouseDownEventHandler(object sender, MouseButtonEventArgs e)
+        public void MouseDownEventHandler(Point mouseCoordinate)
         {
-            var canvas = sender as ItemsControl;
             Rectangle rect;
             if (startPoint == null)
             {
                 rect = new Rectangle();
-                startPoint = new Models.Point(e.GetPosition(canvas).X, e.GetPosition(canvas).Y);
+                startPoint = mouseCoordinate;
                 rect.Width = 0;
                 rect.Height = 0;
                 rect.StrokeThickness = 2;
@@ -53,7 +53,7 @@
             else if (secondPoint == null)
             {
                 rect = (Shapes[0] as Rectangle);
-                secondPoint = new Models.Point(e.GetPosition(canvas).X, e.GetPosition(canvas).Y);
+                secondPoint = mouseCoordinate;
                 var angle = Math.Atan((secondPoint.Y - startPoint.Y) / (secondPoint.X - startPoint.X));
                 var rotate = new RotateTransform(angle * 180 / 3.14);
                 rotate.CenterX = (startPoint.X + secondPoint.X) / 2;
@@ -67,17 +67,16 @@
             }
         }
 
-        public void MouseUpEventHandler(object sender, MouseButtonEventArgs e)
+        public void MouseUpEventHandler(Point mouseCoordinate)
         {
             int a = 0;
         }
 
-        public void MouseMoveEventHandler(object sender, MouseEventArgs e)
+        public void MouseMoveEventHandler(Point mouseCoordinate)
         {
-            var canvas = sender as ItemsControl;
-            if (canvas.Items.Count != 0)
+            if (Shapes.Count != 0)
             {
-                var rect = (canvas.Items[0] as Rectangle);
+                var rect = (Shapes[0] as Rectangle);
 
                 if (secondPoint != null && !drawn)
                 {
@@ -87,7 +86,7 @@
 
                     var m = yDiff / xDiff;
                     var c = startPoint.Y - m * startPoint.X;
-                    var tempHeight = (m * e.GetPosition(canvas).X - e.GetPosition(canvas).Y + c)
+                    var tempHeight = (m * mouseCoordinate.X - mouseCoordinate.Y + c)
                          / Math.Sqrt(Math.Pow(m, 2) + 1);
                     rect.Height = Math.Abs(tempHeight);
 

@@ -1,5 +1,7 @@
 ﻿namespace BasicShapePaint.Models
 {
+    using BasicShapePaint.Utilities;
+
     public class Line : Shape
     {
         #region Public Constructors

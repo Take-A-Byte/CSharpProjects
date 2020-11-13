@@ -1,8 +1,8 @@
-﻿using System.Drawing;
-using System.Windows.Media;
-
-namespace BasicShapePaint.Models
+﻿namespace BasicShapePaint.Models
 {
+    using System.Windows.Media;
+    using BasicShapePaint.Utilities;
+
     public abstract class Shape
     {
         #region Public Properties

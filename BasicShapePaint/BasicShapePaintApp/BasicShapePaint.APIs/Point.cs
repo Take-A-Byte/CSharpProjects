@@ -1,4 +1,4 @@
-﻿namespace BasicShapePaint.Models
+﻿namespace BasicShapePaint.Utilities
 {
     public class Point
     {

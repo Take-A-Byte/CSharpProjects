@@ -57,9 +57,9 @@
     <Compile Include="Utilities\RelayCommands.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BasicShapePaint.APIs\BasicShapePaint.APIs.csproj">
-      <Project>{DC59C324-ECF0-4148-9DA9-564F44AAE9ED}</Project>
-      <Name>BasicShapePaint.APIs</Name>
+    <ProjectReference Include="..\BasicShapePaint.APIs\BasicShapePaint.Utilities.csproj">
+      <Project>{dc59c324-ecf0-4148-9da9-564f44aae9ed}</Project>
+      <Name>BasicShapePaint.Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\BasicShapePaint.Models\BasicShapePaint.Models.csproj">
       <Project>{180f6d58-22e9-4940-9bec-a5df2ed69a10}</Project>

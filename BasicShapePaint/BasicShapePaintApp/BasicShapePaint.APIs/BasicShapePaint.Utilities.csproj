@@ -7,8 +7,8 @@
     <ProjectGuid>{DC59C324-ECF0-4148-9DA9-564F44AAE9ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BasicShapePaint.APIs</RootNamespace>
-    <AssemblyName>BasicShapePaint.APIs</AssemblyName>
+    <RootNamespace>BasicShapePaint.Utilities</RootNamespace>
+    <AssemblyName>BasicShapePaint.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMouseEventHandlerVM.cs" />
+    <Compile Include="APIs\IMouseEventHandlerVM.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

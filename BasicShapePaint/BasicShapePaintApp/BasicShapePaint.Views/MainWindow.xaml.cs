@@ -21,14 +21,6 @@
 
         #endregion Public Constructors
 
-        #region Private Fields
-
-        private BasicShapePaint.Models.Point startPoint;
-        private BasicShapePaint.Models.Point secondPoint;
-        private bool drawn;
-
-        #endregion Private Fields
-
         // Rotated rectangle
         //private void Canvas_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         //{

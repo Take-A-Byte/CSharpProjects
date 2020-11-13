@@ -1,10 +1,5 @@
 ﻿namespace BasicShapePaint.ViewModels
 {
-    using BasicShapePaint.APIs;
-    using BasicShapePaint.Models;
-    using System.Collections.ObjectModel;
-    using System.Windows.Input;
-
     public enum ShapeType
     {
         Line,
