@@ -61,6 +61,8 @@
             public static ShapeType SelectedShapeType { get => menubarVM.SelectedShapeType; }
             public static Brush SelectedColor { get => menubarVM.SelectedColor; }
 
+            public static bool MovingMode { get => menubarVM.MovingMode; }
+
             #endregion Public Properties
 
             #region Public Methods

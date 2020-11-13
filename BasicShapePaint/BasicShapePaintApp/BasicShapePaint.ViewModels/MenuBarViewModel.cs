@@ -13,6 +13,7 @@ namespace BasicShapePaint.ViewModels
         private ICommand chooseColorCommand;
         private Brush selectedColor;
         private bool drawing;
+        private bool movingMode;
 
         #endregion Private Fields
 
@@ -21,8 +22,20 @@ namespace BasicShapePaint.ViewModels
         public MenuBarViewModel()
         {
             SelectedColor = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-            ViewModelMediator.RegisterToViewModelEvent(ViewModelMediator.ViewModelEvent.DrawingStarted, () => drawing = true);
-            ViewModelMediator.RegisterToViewModelEvent(ViewModelMediator.ViewModelEvent.DrawingEnded, () => drawing = false);
+            MovingMode = false;
+            ViewModelMediator.RegisterToViewModelEvent(ViewModelMediator.ViewModelEvent.DrawingStarted, DrawingStartedEventhandler);
+            ViewModelMediator.RegisterToViewModelEvent(ViewModelMediator.ViewModelEvent.DrawingEnded, DrawingEndedEventhandler);
+        }
+
+        private void DrawingEndedEventhandler()
+        {
+            drawing = false;
+        }
+
+        private void DrawingStartedEventhandler()
+        {
+            drawing = true;
+            MovingMode = false;
         }
 
         #endregion Public Constructors
@@ -63,6 +76,16 @@ namespace BasicShapePaint.ViewModels
                 }
 
                 return chooseColorCommand;
+            }
+        }
+
+        public bool MovingMode
+        {
+            get => movingMode;
+            set
+            {
+                movingMode = value;
+                NotifyPropertyChanged(nameof(MovingMode));
             }
         }
 

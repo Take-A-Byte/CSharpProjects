@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utilities\AttachedProperties\AP_IsChecked.cs" />
     <Compile Include="Utilities\Behavior\CanvasBehavior.cs" />
     <Compile Include="Utilities\ShapeTypeToIconConverter.cs" />
     <Page Include="MainWindow.xaml">

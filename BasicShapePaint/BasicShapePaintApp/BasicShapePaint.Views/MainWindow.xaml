@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:BasicShapePaint.Views"
         xmlns:viewModels="clr-namespace:BasicShapePaint.ViewModels;assembly=BasicShapePaint.ViewModels"
         xmlns:behaviors="clr-namespace:BasicShapePaint.Views.Utilities.Behavior"
+        xmlns:attachedProperties="clr-namespace:BasicShapePaint.Views.Utilities.AttachedProperties"
         xmlns:utilities="clr-namespace:BasicShapePaint.Views.Utilities"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
@@ -60,7 +61,37 @@
                                 <Setter Property="Opacity" Value="0.7" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.3"/>
+                                <Setter Property="Opacity" Value="0.3" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="Move" Margin="5" VerticalAlignment="Stretch" Width="45"
+                    BorderThickness="3" attachedProperties:AP_IsChecked.IsChecked="{Binding MovingMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Red" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}"
+                                            BorderBrush="{TemplateBinding BorderBrush}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.3" />
+                            </Trigger>
+                            <Trigger Property="attachedProperties:AP_IsChecked.IsChecked" Value="True">
+                                <Setter Property="Background" Value="Green" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>

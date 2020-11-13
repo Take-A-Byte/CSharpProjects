@@ -172,8 +172,11 @@
 
         private void Shape_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var shape = sender as Shape;
-            shape.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            if (ViewModelMediator.MovingMode)
+            {
+                var shape = sender as Shape;
+                shape.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            }
         }
 
         #endregion Public Methods
