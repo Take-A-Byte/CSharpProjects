@@ -2,18 +2,17 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Windows.Controls;
-    using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Shapes;
     using BasicShapePaint.Utilities.APIs;
     using BasicShapePaint.Utilities;
+    using System.Linq;
 
     internal class CanvasViewModel : BaseViewModel, IMouseEventHandlerVM
     {
         #region Private Fields
 
-        private Point startPoint;
+        private Point firstPoint;
         private Point secondPoint;
         private bool drawn;
 
@@ -24,6 +23,18 @@
         public CanvasViewModel()
         {
             Shapes = new ObservableCollection<Shape>();
+            ViewModelMediator.SelectedShapeChanged += ViewModelMediator_SelectedShapeChanged;
+        }
+
+        private void ViewModelMediator_SelectedShapeChanged()
+        {
+            if (!drawn && firstPoint != null)
+            {
+                Shapes.Remove(Shapes.Last());
+            }
+
+            firstPoint = secondPoint = null;
+            drawn = false;
         }
 
         #endregion Public Constructors
@@ -38,32 +49,30 @@
 
         public void MouseDownEventHandler(Point mouseCoordinate)
         {
-            Rectangle rect;
-            if (startPoint == null)
+            Shape shape;
+            if (firstPoint == null)
             {
-                rect = new Rectangle();
-                startPoint = mouseCoordinate;
-                rect.Width = 0;
-                rect.Height = 0;
-                rect.StrokeThickness = 2;
-                rect.Stroke = new SolidColorBrush(Colors.Red);
-                rect.RenderTransform = new TranslateTransform(startPoint.X, startPoint.Y);
-                Shapes.Add(rect);
+                shape = CreateShape();
+                firstPoint = mouseCoordinate;
+                shape.Width = shape.Height = 0;
+                shape.StrokeThickness = 2;
+                shape.Stroke = ViewModelMediator.SelectedColor;
+                shape.RenderTransform = new TranslateTransform(firstPoint.X, firstPoint.Y);
+                Shapes.Add(shape);
             }
             else if (secondPoint == null)
             {
-                rect = (Shapes[0] as Rectangle);
+                shape = Shapes[0];
                 secondPoint = mouseCoordinate;
-                var angle = Math.Atan((secondPoint.Y - startPoint.Y) / (secondPoint.X - startPoint.X));
+                var angle = Math.Atan((secondPoint.Y - firstPoint.Y) / (secondPoint.X - firstPoint.X));
                 var rotate = new RotateTransform(angle * 180 / 3.14);
-                rotate.CenterX = (startPoint.X + secondPoint.X) / 2;
-                rotate.CenterY = (startPoint.Y + secondPoint.Y) / 2;
-                rect.RenderTransform = rotate;
+                rotate.CenterX = (firstPoint.X + secondPoint.X) / 2;
+                rotate.CenterY = (firstPoint.Y + secondPoint.Y) / 2;
+                shape.RenderTransform = rotate;
             }
             else
             {
                 drawn = true;
-                rect = (Shapes[0] as Rectangle);
             }
         }
 
@@ -76,45 +85,71 @@
         {
             if (Shapes.Count != 0)
             {
-                var rect = (Shapes[0] as Rectangle);
+                var shape = Shapes[0];
 
                 if (secondPoint != null && !drawn)
                 {
-                    var xDiff = secondPoint.X - startPoint.X;
-                    var yDiff = secondPoint.Y - startPoint.Y;
-                    rect.Width = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2));
+                    var xDiff = secondPoint.X - firstPoint.X;
+                    var yDiff = secondPoint.Y - firstPoint.Y;
+                    shape.Width = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2));
 
                     var m = yDiff / xDiff;
-                    var c = startPoint.Y - m * startPoint.X;
+                    var c = firstPoint.Y - m * firstPoint.X;
                     var tempHeight = (m * mouseCoordinate.X - mouseCoordinate.Y + c)
                          / Math.Sqrt(Math.Pow(m, 2) + 1);
-                    rect.Height = Math.Abs(tempHeight);
+
+                    if (shape is Rectangle)
+                    {
+                        shape.Height = Math.Abs(tempHeight);
+                    }
+                    else
+                    {
+                        shape.Height = Math.Abs(tempHeight) * 2;
+                    }
 
                     Transform rectifyTranslate = Transform.Identity;
-                    Transform rectifyWidthTranslate = new TranslateTransform(-rect.Width / 2, 0);
+                    Transform rectifyWidthTranslate = new TranslateTransform(-shape.Width / 2, 0);
                     Transform translate = Transform.Identity;
                     TransformGroup tansformGroup;
-                    if (!(rect.RenderTransform is TransformGroup existingGroup))
+                    if (!(shape.RenderTransform is TransformGroup existingGroup))
                     {
                         translate = new TranslateTransform(
-                              (startPoint.X + secondPoint.X) / 2, (startPoint.Y + secondPoint.Y) / 2);
+                              (firstPoint.X + secondPoint.X) / 2, (firstPoint.Y + secondPoint.Y) / 2);
                         tansformGroup = new TransformGroup();
                         tansformGroup.Children.Add(rectifyTranslate);
                         tansformGroup.Children.Add(rectifyWidthTranslate);
                         tansformGroup.Children.Add(translate);
-                        tansformGroup.Children.Add(rect.RenderTransform);
-                        rect.RenderTransform = tansformGroup;
+                        tansformGroup.Children.Add(shape.RenderTransform);
+                        shape.RenderTransform = tansformGroup;
                     }
 
-                    tansformGroup = rect.RenderTransform as TransformGroup;
+                    tansformGroup = shape.RenderTransform as TransformGroup;
                     if (tempHeight > 0)
                     {
                         tansformGroup.Children[0] = new TranslateTransform(0, -tempHeight);
+                    }
+                    else if (shape is Ellipse)
+                    {
+                        tansformGroup.Children[0] = new TranslateTransform(0, tempHeight);
                     }
                 }
             }
         }
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        private Shape CreateShape()
+        {
+            return ViewModelMediator.SelectedShapeType switch
+            {
+                ShapeType.Rectangle => new Rectangle(),
+                ShapeType.Ellipse => new Ellipse(),
+                ShapeType.Line => new Line()
+            };
+        }
+
+        #endregion Private Methods
     }
 }
