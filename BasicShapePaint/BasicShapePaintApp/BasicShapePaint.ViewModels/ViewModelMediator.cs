@@ -21,6 +21,7 @@
                 new ReadOnlyDictionary<ViewModelEvent, Type>(new Dictionary<ViewModelEvent, Type>()
                 {{ViewModelEvent.DrawingEnded, typeof(CanvasViewModel)},
                 {ViewModelEvent.DrawingStarted, typeof(CanvasViewModel)},
+                {ViewModelEvent.MovingModeChanged, typeof(MenuBarViewModel)},
                 {ViewModelEvent.SelectedShapeChanged, typeof(MenuBarViewModel)},
                 });
 
@@ -28,6 +29,7 @@
                 new ReadOnlyDictionary<ViewModelEvent, List<EmptyEventHandler>>(new Dictionary<ViewModelEvent, List<EmptyEventHandler>>()
                 {{ViewModelEvent.DrawingEnded, new List<EmptyEventHandler>()},
                 {ViewModelEvent.DrawingStarted, new List<EmptyEventHandler>()},
+                {ViewModelEvent.MovingModeChanged, new List<EmptyEventHandler>()},
                 {ViewModelEvent.SelectedShapeChanged, new List<EmptyEventHandler>()},
                 });
 
@@ -51,6 +53,7 @@
             {
                 DrawingStarted,
                 DrawingEnded,
+                MovingModeChanged,
                 SelectedShapeChanged
             }
 
@@ -59,6 +62,7 @@
             #region Public Properties
 
             public static ShapeType SelectedShapeType { get => menubarVM.SelectedShapeType; }
+
             public static Brush SelectedColor { get => menubarVM.SelectedColor; }
 
             public static bool MovingMode { get => menubarVM.MovingMode; }

@@ -85,6 +85,7 @@ namespace BasicShapePaint.ViewModels
             set
             {
                 movingMode = value;
+                ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.MovingModeChanged);
                 NotifyPropertyChanged(nameof(MovingMode));
             }
         }

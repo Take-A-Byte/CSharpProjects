@@ -26,6 +26,8 @@
             Shapes = new ObservableCollection<Shape>();
             ViewModelMediator.RegisterToViewModelEvent(
                 ViewModelMediator.ViewModelEvent.SelectedShapeChanged, Reset);
+            ViewModelMediator.RegisterToViewModelEvent(
+                ViewModelMediator.ViewModelEvent.MovingModeChanged, Reset);
         }
 
         #endregion Public Constructors
