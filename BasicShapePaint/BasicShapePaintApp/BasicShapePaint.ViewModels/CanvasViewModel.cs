@@ -7,6 +7,7 @@
     using BasicShapePaint.Utilities.APIs;
     using BasicShapePaint.Utilities;
     using System.Linq;
+    using static BasicShapePaint.ViewModels.Utilities.MiscellaneousUtilities;
 
     internal class CanvasViewModel : BaseViewModel, IMouseEventHandlerVM
     {
@@ -23,7 +24,8 @@
         public CanvasViewModel()
         {
             Shapes = new ObservableCollection<Shape>();
-            ViewModelMediator.SelectedShapeChanged += () => Reset();
+            ViewModelMediator.RegisterToViewModelEvent(
+                ViewModelMediator.ViewModelEvent.SelectedShapeChanged, Reset);
         }
 
         #endregion Public Constructors
@@ -40,6 +42,7 @@
         {
             if (firstPoint == null)
             {
+                ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.DrawingStarted);
                 drawn = false;  // new drawing started
                 Shape shape = CreateShape();
                 firstPoint = mouseCoordinate;
@@ -77,6 +80,7 @@
                     (Shapes.Last() as Line).Y2 = secondPoint.Y;
                     drawn = true;
                     firstPoint = secondPoint = null;
+                    ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.DrawingEnded);
                 }
                 else
                 {
@@ -91,10 +95,12 @@
             }
             else
             {
-                Shape shape = Shapes.Last();
                 drawn = true;
                 firstPoint = secondPoint = null;
+                Shape shape = Shapes.Last();
+                ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.DrawingEnded);
                 shape.Fill = ViewModelMediator.SelectedColor;
+                shape.MouseDown += Shape_MouseDown;
             }
         }
 
@@ -163,6 +169,12 @@
             }
         }
 
+        private void Shape_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var shape = sender as Shape;
+            shape.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+        }
+
         #endregion Public Methods
 
         #region Private Methods
@@ -191,6 +203,7 @@
 
             firstPoint = secondPoint = null;
             drawn = false;
+            ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.DrawingEnded);
         }
 
         #endregion Private Methods

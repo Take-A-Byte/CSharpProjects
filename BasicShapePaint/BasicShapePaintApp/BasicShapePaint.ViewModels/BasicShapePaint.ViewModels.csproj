@@ -57,6 +57,7 @@
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MenuBarViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\MiscellaneousUtilities.cs" />
     <Compile Include="Utilities\RelayCommands.cs" />
     <Compile Include="ViewModelMediator.cs" />
   </ItemGroup>

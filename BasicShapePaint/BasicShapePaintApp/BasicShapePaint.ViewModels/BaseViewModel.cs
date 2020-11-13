@@ -12,11 +12,11 @@
         {
             if (this is MenuBarViewModel menubarVM)
             {
-                ViewModelMediator.MenubarVM = menubarVM;
+                ViewModelMediator.menubarVM = menubarVM;
             }
             else if (this is CanvasViewModel canvasVM)
             {
-                ViewModelMediator.CanvasVM = canvasVM;
+                ViewModelMediator.canvasVM = canvasVM;
             }
         }
 

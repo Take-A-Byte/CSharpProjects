@@ -12,6 +12,7 @@ namespace BasicShapePaint.ViewModels
         private ShapeType selectedShapeType;
         private ICommand chooseColorCommand;
         private Brush selectedColor;
+        private bool drawing;
 
         #endregion Private Fields
 
@@ -20,6 +21,8 @@ namespace BasicShapePaint.ViewModels
         public MenuBarViewModel()
         {
             SelectedColor = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            ViewModelMediator.RegisterToViewModelEvent(ViewModelMediator.ViewModelEvent.DrawingStarted, () => drawing = true);
+            ViewModelMediator.RegisterToViewModelEvent(ViewModelMediator.ViewModelEvent.DrawingEnded, () => drawing = false);
         }
 
         #endregion Public Constructors
@@ -31,8 +34,12 @@ namespace BasicShapePaint.ViewModels
             get => selectedShapeType;
             set
             {
-                selectedShapeType = value;
-                NotifyPropertyChanged(nameof(SelectedShapeType));
+                if (selectedShapeType != value)
+                {
+                    selectedShapeType = value;
+                    ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.SelectedShapeChanged);
+                    NotifyPropertyChanged(nameof(SelectedShapeType));
+                }
             }
         }
 
@@ -78,7 +85,7 @@ namespace BasicShapePaint.ViewModels
 
         private bool CanExecuteChooseColorCommand()
         {
-            return true;
+            return !drawing;
         }
 
         #endregion Private Methods

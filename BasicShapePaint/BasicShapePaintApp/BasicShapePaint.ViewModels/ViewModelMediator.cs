@@ -1,7 +1,10 @@
 ﻿namespace BasicShapePaint.ViewModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Windows.Media;
+    using static BasicShapePaint.ViewModels.Utilities.MiscellaneousUtilities;
 
     public partial class BaseViewModel
     {
@@ -9,20 +12,49 @@
 
         protected static class ViewModelMediator
         {
+            internal static CanvasViewModel canvasVM;
+            internal static MenuBarViewModel menubarVM;
+
             #region Private Fields
 
-            private static CanvasViewModel canvasVM;
-            private static MenuBarViewModel menubarVM;
+            private static ReadOnlyDictionary<ViewModelEvent, Type> eventOwners =
+                new ReadOnlyDictionary<ViewModelEvent, Type>(new Dictionary<ViewModelEvent, Type>()
+                {{ViewModelEvent.DrawingEnded, typeof(CanvasViewModel)},
+                {ViewModelEvent.DrawingStarted, typeof(CanvasViewModel)},
+                {ViewModelEvent.SelectedShapeChanged, typeof(MenuBarViewModel)},
+                });
+
+            private static ReadOnlyDictionary<ViewModelEvent, List<EmptyEventHandler>> eventSubscribers =
+                new ReadOnlyDictionary<ViewModelEvent, List<EmptyEventHandler>>(new Dictionary<ViewModelEvent, List<EmptyEventHandler>>()
+                {{ViewModelEvent.DrawingEnded, new List<EmptyEventHandler>()},
+                {ViewModelEvent.DrawingStarted, new List<EmptyEventHandler>()},
+                {ViewModelEvent.SelectedShapeChanged, new List<EmptyEventHandler>()},
+                });
 
             #endregion Private Fields
 
-            #region Public Events
+            static ViewModelMediator()
+            {
+#if DEBUG
+                if (eventOwners.Count != Enum.GetNames(typeof(ViewModelEvent)).Length
+                    || eventSubscribers.Count != Enum.GetNames(typeof(ViewModelEvent)).Length)
+                {
+                    throw new Exception("Total number of View model events do not match the " +
+                        "total number of owners and/or subscribers in dictionary.");
+                }
+#endif
+            }
 
-            public delegate void SelectedShapeChanedEventHandler();
+            #region Public Enums
 
-            public static event SelectedShapeChanedEventHandler SelectedShapeChanged;
+            public enum ViewModelEvent
+            {
+                DrawingStarted,
+                DrawingEnded,
+                SelectedShapeChanged
+            }
 
-            #endregion Public Events
+            #endregion Public Enums
 
             #region Public Properties
 
@@ -31,45 +63,25 @@
 
             #endregion Public Properties
 
-            #region Internal Properties
+            #region Public Methods
 
-            internal static CanvasViewModel CanvasVM
+            public static void RegisterToViewModelEvent(ViewModelEvent vmEvent, EmptyEventHandler handler)
             {
-                get => canvasVM;
-                set
-                {
-                    canvasVM = value;
-                }
+                eventSubscribers[vmEvent].Add(handler);
             }
 
-            internal static MenuBarViewModel MenubarVM
+            public static void RaiseViewModelEvent(BaseViewModel invoker, ViewModelEvent vmEvent)
             {
-                get => menubarVM;
-                set
+                if (eventOwners[vmEvent] == invoker.GetType())
                 {
-                    if (menubarVM != null)
+                    foreach (var subscriber in eventSubscribers[vmEvent])
                     {
-                        menubarVM.PropertyChanged -= MenubarVM_PropertyChanged;
+                        subscriber();
                     }
-
-                    menubarVM = value;
-                    menubarVM.PropertyChanged += MenubarVM_PropertyChanged;
                 }
             }
 
-            #endregion Internal Properties
-
-            #region Private Methods
-
-            private static void MenubarVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-            {
-                if (e.PropertyName == nameof(menubarVM.SelectedShapeType))
-                {
-                    SelectedShapeChanged?.Invoke();
-                }
-            }
-
-            #endregion Private Methods
+            #endregion Public Methods
         }
 
         #endregion Protected Classes
