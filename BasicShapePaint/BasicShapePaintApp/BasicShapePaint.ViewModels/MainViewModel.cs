@@ -1,11 +1,10 @@
-﻿using BasicShapePaint.Models;
-using BasicShapePaint.ViewModels.Utilities;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-
-namespace BasicShapePaint.ViewModels
+﻿namespace BasicShapePaint.ViewModels
 {
+    using BasicShapePaint.APIs;
+    using BasicShapePaint.Models;
+    using System.Collections.ObjectModel;
+    using System.Windows.Input;
+
     public enum ShapeType
     {
         Line,
@@ -13,11 +12,10 @@ namespace BasicShapePaint.ViewModels
         Ellipse
     }
 
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel, IMouseEventHandlerVM
     {
         #region Private Fields
 
-        private ICommand mouseDownCommand;
         private ShapeType selectedShapeType;
 
         #endregion Private Fields
@@ -32,19 +30,6 @@ namespace BasicShapePaint.ViewModels
         #endregion Public Constructors
 
         #region Public Properties
-
-        public ICommand MouseDownCommand
-        {
-            get
-            {
-                if (mouseDownCommand == null)
-                {
-                    mouseDownCommand = new RelayCommand(OnMouseDownCommandInvoked);
-                }
-
-                return mouseDownCommand;
-            }
-        }
 
         public ObservableCollection<Shape> Shapes { get; }
 
@@ -62,8 +47,19 @@ namespace BasicShapePaint.ViewModels
 
         #region Private Methods
 
-        private void OnMouseDownCommandInvoked()
+        public void MouseDownEventHandler(object sender, MouseButtonEventArgs e)
         {
+            int a = 0;
+        }
+
+        public void MouseUpEventHandler(object sender, MouseButtonEventArgs e)
+        {
+            int a = 0;
+        }
+
+        public void MouseMoveEventHandler(object sender, MouseEventArgs e)
+        {
+            int a = 0;
         }
 
         #endregion Private Methods

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Media;
 
 namespace BasicShapePaint.Models
 {

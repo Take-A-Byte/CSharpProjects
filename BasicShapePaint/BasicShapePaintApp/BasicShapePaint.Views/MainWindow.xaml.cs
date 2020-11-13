@@ -1,6 +1,5 @@
 ﻿namespace BasicShapePaint.Views
 {
-    using BasicShapePaint.Models;
     using System;
     using System.Windows;
     using System.Windows.Controls;
@@ -32,8 +31,8 @@
             colorDialog.SolidColorOnly = true;
             if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ColorPicker.Background = new SolidColorBrush(Color.FromRgb(
-                    colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B));
+                //ColorPicker.Background = new SolidColorBrush(Color.FromRgb(
+                //    colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B));
             }
         }
 
