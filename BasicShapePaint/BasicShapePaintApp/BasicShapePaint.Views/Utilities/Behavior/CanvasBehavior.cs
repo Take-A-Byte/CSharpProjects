@@ -1,10 +1,10 @@
 ﻿namespace BasicShapePaint.Views.Utilities.Behavior
 {
     using BasicShapePaint.APIs;
-    using System.Windows.Controls;
+    using System.Windows;
     using System.Windows.Interactivity;
 
-    internal class CanvasBehavior : Behavior<Canvas>
+    internal class CanvasBehavior : Behavior<FrameworkElement>
     {
         #region Protected Methods
 
