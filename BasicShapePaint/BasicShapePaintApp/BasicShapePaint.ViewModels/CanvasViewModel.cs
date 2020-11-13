@@ -54,21 +54,42 @@
             {
                 shape = CreateShape();
                 firstPoint = mouseCoordinate;
-                shape.Width = shape.Height = 0;
                 shape.StrokeThickness = 2;
                 shape.Stroke = ViewModelMediator.SelectedColor;
-                shape.RenderTransform = new TranslateTransform(firstPoint.X, firstPoint.Y);
+
+                if (shape is Line line)
+                {
+                    line.X1 = firstPoint.X;
+                    line.Y1 = firstPoint.Y;
+                    line.X2 = firstPoint.X;
+                    line.Y2 = firstPoint.Y;
+                }
+                else
+                {
+                    shape.Width = shape.Height = 0;
+                    shape.RenderTransform = new TranslateTransform(firstPoint.X, firstPoint.Y);
+                }
+
                 Shapes.Add(shape);
             }
             else if (secondPoint == null)
             {
-                shape = Shapes[0];
+                shape = Shapes.Last();
                 secondPoint = mouseCoordinate;
-                var angle = Math.Atan((secondPoint.Y - firstPoint.Y) / (secondPoint.X - firstPoint.X));
-                var rotate = new RotateTransform(angle * 180 / 3.14);
-                rotate.CenterX = (firstPoint.X + secondPoint.X) / 2;
-                rotate.CenterY = (firstPoint.Y + secondPoint.Y) / 2;
-                shape.RenderTransform = rotate;
+                if (shape is Line line)
+                {
+                    line.X2 = secondPoint.X;
+                    line.Y2 = secondPoint.Y;
+                    drawn = true;
+                }
+                else
+                {
+                    var angle = Math.Atan((secondPoint.Y - firstPoint.Y) / (secondPoint.X - firstPoint.X));
+                    var rotate = new RotateTransform(angle * 180 / 3.14);
+                    rotate.CenterX = (firstPoint.X + secondPoint.X) / 2;
+                    rotate.CenterY = (firstPoint.Y + secondPoint.Y) / 2;
+                    shape.RenderTransform = rotate;
+                }
             }
             else
             {
@@ -83,11 +104,16 @@
 
         public void MouseMoveEventHandler(Point mouseCoordinate)
         {
-            if (Shapes.Count != 0)
+            if (Shapes.Count != 0 && !drawn)
             {
-                var shape = Shapes[0];
+                var shape = Shapes.Last();
 
-                if (secondPoint != null && !drawn)
+                if (shape is Line && firstPoint != null)
+                {
+                    (Shapes.Last() as Line).X2 = mouseCoordinate.X;
+                    (Shapes.Last() as Line).Y2 = mouseCoordinate.Y;
+                }
+                else if (secondPoint != null)
                 {
                     var xDiff = secondPoint.X - firstPoint.X;
                     var yDiff = secondPoint.Y - firstPoint.Y;
