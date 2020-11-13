@@ -21,23 +21,6 @@
 
         #endregion Public Constructors
 
-        #region Private Methods
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
-            colorDialog.AllowFullOpen = true;
-            colorDialog.FullOpen = true;
-            colorDialog.SolidColorOnly = true;
-            if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                //ColorPicker.Background = new SolidColorBrush(Color.FromRgb(
-                //    colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B));
-            }
-        }
-
-        #endregion Private Methods
-
         #region Private Fields
 
         private BasicShapePaint.Models.Point startPoint;
@@ -46,9 +29,11 @@
 
         #endregion Private Fields
 
+        #region Private Methods
+
         private void Canvas_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var canvas = sender as Canvas;
+            var canvas = sender as ItemsControl;
             Rectangle rect;
             if (startPoint == null)
             {
@@ -59,11 +44,11 @@
                 rect.StrokeThickness = 2;
                 rect.Stroke = new SolidColorBrush(Colors.Red);
                 rect.RenderTransform = new TranslateTransform(startPoint.X, startPoint.Y);
-                canvas.Children.Add(rect);
+                canvas.Items.Add(rect);
             }
             else if (secondPoint == null)
             {
-                rect = (canvas.Children[0] as Rectangle);
+                rect = (canvas.Items[0] as Rectangle);
                 secondPoint = new Models.Point(e.GetPosition(canvas).X, e.GetPosition(canvas).Y);
                 var angle = Math.Atan((secondPoint.Y - startPoint.Y) / (secondPoint.X - startPoint.X));
                 var rotate = new RotateTransform(angle * 180 / 3.14);
@@ -74,16 +59,16 @@
             else
             {
                 drawn = true;
-                rect = (canvas.Children[0] as Rectangle);
+                rect = (canvas.Items[0] as Rectangle);
             }
         }
 
         private void Canvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            var canvas = sender as Canvas;
-            if (canvas.Children.Count != 0)
+            var canvas = sender as ItemsControl;
+            if (canvas.Items.Count != 0)
             {
-                var rect = (canvas.Children[0] as Rectangle);
+                var rect = (canvas.Items[0] as Rectangle);
 
                 if (secondPoint != null && !drawn)
                 {
@@ -121,6 +106,8 @@
                 }
             }
         }
+
+        #endregion Private Methods
 
         // Rotated rectangle
         //private void Canvas_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

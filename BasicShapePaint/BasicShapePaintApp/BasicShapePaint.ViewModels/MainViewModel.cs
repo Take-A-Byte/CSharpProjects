@@ -12,56 +12,24 @@
         Ellipse
     }
 
-    public class MainViewModel : BaseViewModel, IMouseEventHandlerVM
+    public class MainViewModel : BaseViewModel
     {
-        #region Private Fields
-
-        private ShapeType selectedShapeType;
-
-        #endregion Private Fields
-
         #region Public Constructors
 
         public MainViewModel()
         {
-            Shapes = new ObservableCollection<Shape>();
+            MenuBarVM = new MenuBarViewModel();
+            CanvasVM = new CanvasViewModel();
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
-        public ObservableCollection<Shape> Shapes { get; }
+        public BaseViewModel MenuBarVM { get; }
 
-        public ShapeType SelectedShapeType
-        {
-            get => selectedShapeType;
-            set
-            {
-                selectedShapeType = value;
-                NotifyPropertyChanged(nameof(SelectedShapeType));
-            }
-        }
+        public BaseViewModel CanvasVM { get; }
 
         #endregion Public Properties
-
-        #region Private Methods
-
-        public void MouseDownEventHandler(object sender, MouseButtonEventArgs e)
-        {
-            int a = 0;
-        }
-
-        public void MouseUpEventHandler(object sender, MouseButtonEventArgs e)
-        {
-            int a = 0;
-        }
-
-        public void MouseMoveEventHandler(object sender, MouseEventArgs e)
-        {
-            int a = 0;
-        }
-
-        #endregion Private Methods
     }
 }
