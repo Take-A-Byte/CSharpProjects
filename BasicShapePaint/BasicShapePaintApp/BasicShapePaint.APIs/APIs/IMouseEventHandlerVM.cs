@@ -4,11 +4,11 @@
     {
         #region Public Methods
 
-        void LeftMouseUpEventHandler(Point mouseCoordinate);
+        void LeftMouseUpEventHandler(CanvasPoint mouseCoordinate);
 
-        void RightMouseUpEventHandler(Point mouseCoordinate);
+        void RightMouseUpEventHandler(CanvasPoint mouseCoordinate);
 
-        void MouseMoveEventHandler(Point mouseCoordinate);
+        void MouseMoveEventHandler(CanvasPoint mouseCoordinate);
 
         #endregion Public Methods
     }

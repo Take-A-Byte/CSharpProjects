@@ -43,10 +43,9 @@
             }
         }
 
-        private BasicShapePaint.Utilities.Point ConvertMouseCoordinate(System.Windows.Input.MouseEventArgs e)
+        private BasicShapePaint.Utilities.CanvasPoint ConvertMouseCoordinate(System.Windows.Input.MouseEventArgs e)
         {
-            return new BasicShapePaint.Utilities.Point(
-                e.GetPosition(AssociatedObject).X, e.GetPosition(AssociatedObject).Y);
+            return new BasicShapePaint.Utilities.CanvasPoint(e, AssociatedObject);
         }
 
         #endregion Private Methods

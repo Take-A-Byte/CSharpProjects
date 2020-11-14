@@ -1,5 +1,6 @@
 ﻿namespace BasicShapePaint.ViewModels
 {
+    using BasicShapePaint.Utilities;
     using System;
     using System.Windows.Input;
     using System.Windows.Media;
@@ -11,6 +12,8 @@
         #region Private Fields
 
         private Shape shape;
+        private Brush shapeBrush;
+        private BasicShapePaint.Utilities.Point translateFrom;
         private bool isSelected;
 
         #endregion Private Fields
@@ -22,6 +25,7 @@
             this.shape = shape;
             shape.StrokeThickness = 2;
             shape.Stroke = ViewModelMediator.SelectedColor;
+            shapeBrush = shape.Stroke;
             ViewModelMediator.RegisterToViewModelEvent(
                 ViewModelMediator.ViewModelEvent.DrawingEnded, DrawingEndedEventHandler);
             ViewModelMediator.RegisterToViewModelEvent(
@@ -54,7 +58,14 @@
                     }
                     else
                     {
-                        shape.Stroke = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                        if (Shape is Line)
+                        {
+                            shape.Stroke = shapeBrush;
+                        }
+                        else
+                        {
+                            shape.Stroke = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                        }
                     }
 
                     isSelected = value;
@@ -71,7 +82,7 @@
             try
             {
                 OtherShapeSelected -= ShapeViewModel_OtherShapeSelected;
-                shape.MouseDown -= Shape_MouseDown;
+                shape.MouseDown -= Shape_LeftMouseDown;
             }
             finally
             {
@@ -97,23 +108,56 @@
             }
 
             OtherShapeSelected += ShapeViewModel_OtherShapeSelected;
-            shape.MouseDown += Shape_MouseDown;
+            shape.MouseLeftButtonDown += Shape_LeftMouseDown;
         }
 
         private void MovingModeChanged()
         {
             if (!ViewModelMediator.MovingMode)
             {
-                shape.Stroke = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                IsSelected = false;
             }
         }
 
-        private void Shape_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Shape_LeftMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (ViewModelMediator.MovingMode)
             {
                 IsSelected = true;
+                translateFrom = new BasicShapePaint.Utilities.Point(
+                    e.GetPosition(shape).X, e.GetPosition(shape).Y);
+                shape.PreviewMouseMove += Shape_PreviewMouseMove;
+                CanvasViewModel.MouseMovedOnCanvas += MouseMovedOnCanvas; ;
+                shape.MouseLeftButtonUp += Shape_MouseLeftButtonUp;
             }
+        }
+
+        private void MouseMovedOnCanvas(CanvasPoint mouseCoordinate)
+        {
+            PreviewMouseMove(mouseCoordinate.GetRelativePosition(shape));
+        }
+
+        private void Shape_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            PreviewMouseMove(new Point(e.GetPosition(Shape).X, e.GetPosition(Shape).Y));
+        }
+
+        private void Shape_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            translateFrom = null;
+            shape.PreviewMouseMove -= Shape_PreviewMouseMove;
+            CanvasViewModel.MouseMovedOnCanvas -= MouseMovedOnCanvas;
+            IsSelected = false;
+        }
+
+        private void PreviewMouseMove(Point mouseCoordinate)
+        {
+            Transform translate = new TranslateTransform(
+                mouseCoordinate.X - translateFrom.X, mouseCoordinate.Y - translateFrom.Y);
+            TransformGroup group = new TransformGroup();
+            group.Children.Add(translate);
+            group.Children.Add(Shape.RenderTransform);
+            Shape.RenderTransform = group;
         }
 
         private void ShapeViewModel_OtherShapeSelected()

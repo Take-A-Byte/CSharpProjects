@@ -1,6 +1,7 @@
 ﻿namespace BasicShapePaint.ViewModels.Utilities
 {
     using System;
+    using BasicShapePaint.Utilities;
 
     public static class MiscellaneousUtilities
     {
@@ -8,23 +9,7 @@
 
         public delegate void EmptyEventHandler();
 
-        public class DrawingEndedEventArgs : EventArgs
-        {
-            #region Public Constructors
-
-            public DrawingEndedEventArgs(bool completed)
-            {
-                Completed = completed;
-            }
-
-            #endregion Public Constructors
-
-            #region Public Properties
-
-            public bool Completed { get; }
-
-            #endregion Public Properties
-        }
+        public delegate void BSPMouseEventHandler(CanvasPoint mouseCoordinate);
 
         #endregion Public Delegates
     }

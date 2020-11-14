@@ -7,9 +7,8 @@
     using BasicShapePaint.Utilities.APIs;
     using BasicShapePaint.Utilities;
     using System.Linq;
-    using static BasicShapePaint.ViewModels.Utilities.MiscellaneousUtilities;
     using System.Collections.Specialized;
-    using System.Collections.Generic;
+    using static BasicShapePaint.ViewModels.Utilities.MiscellaneousUtilities;
 
     internal class CanvasViewModel : BaseViewModel, IMouseEventHandlerVM
     {
@@ -51,6 +50,12 @@
 
         #endregion Public Constructors
 
+        #region Internal Events
+
+        internal static event BSPMouseEventHandler MouseMovedOnCanvas;
+
+        #endregion Internal Events
+
         #region Public Properties
 
         public ObservableCollection<ShapeViewModel> Shapes { get; }
@@ -59,7 +64,7 @@
 
         #region Public Methods
 
-        public void LeftMouseUpEventHandler(Point mouseCoordinate)
+        public void LeftMouseUpEventHandler(CanvasPoint mouseCoordinate)
         {
             if (!ViewModelMediator.MovingMode)
             {
@@ -68,7 +73,7 @@
                     ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.DrawingStarted);
                     drawn = false;  // new drawing started
                     ShapeViewModel shapeVM = CreateShapeVM();
-                    firstPoint = mouseCoordinate;
+                    firstPoint = mouseCoordinate.AbsolutePoint;
 
                     if (shapeVM.Shape is Line line)
                     {
@@ -96,7 +101,7 @@
                 }
                 else if (secondPoint == null)
                 {
-                    secondPoint = mouseCoordinate;
+                    secondPoint = mouseCoordinate.AbsolutePoint;
                     if (ViewModelMediator.SelectedShapeType == ShapeType.Line)
                     {
                         Shape shape = Shapes.Last().Shape;
@@ -128,21 +133,21 @@
             }
         }
 
-        public void RightMouseUpEventHandler(Point mouseCoordinate)
+        public void RightMouseUpEventHandler(CanvasPoint mouseCoordinate)
         {
             Reset();
         }
 
-        public void MouseMoveEventHandler(Point mouseCoordinate)
+        public void MouseMoveEventHandler(CanvasPoint mouseCoordinate)
         {
-            if (Shapes.Count != 0 && !drawn)
+            if (Shapes.Count != 0 && !drawn && !ViewModelMediator.MovingMode)
             {
                 var shape = Shapes.Last().Shape;
 
                 if (shape is Line line && firstPoint != null)
                 {
-                    line.X2 = mouseCoordinate.X;
-                    line.Y2 = mouseCoordinate.Y;
+                    line.X2 = mouseCoordinate.AbsolutePoint.X;
+                    line.Y2 = mouseCoordinate.AbsolutePoint.Y;
                 }
                 else if (secondPoint != null)
                 {
@@ -152,7 +157,8 @@
 
                     var m = yDiff / xDiff;
                     var c = firstPoint.Y - m * firstPoint.X;
-                    var tempHeight = (m * mouseCoordinate.X - mouseCoordinate.Y + c)
+                    var tempHeight =
+                        (m * mouseCoordinate.AbsolutePoint.X - mouseCoordinate.AbsolutePoint.Y + c)
                          / Math.Sqrt(Math.Pow(m, 2) + 1);
 
                     if (shape is Rectangle)
@@ -190,6 +196,10 @@
                         tansformGroup.Children[0] = new TranslateTransform(0, tempHeight);
                     }
                 }
+            }
+            else
+            {
+                MouseMovedOnCanvas?.Invoke(mouseCoordinate);
             }
         }
 
