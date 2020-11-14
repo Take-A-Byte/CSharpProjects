@@ -14,6 +14,7 @@ namespace BasicShapePaint.ViewModels
         private Brush selectedColor;
         private bool drawing;
         private bool movingMode;
+        private System.Windows.Forms.ColorDialog colorDialog;
 
         #endregion Private Fields
 
@@ -21,7 +22,7 @@ namespace BasicShapePaint.ViewModels
 
         public MenuBarViewModel()
         {
-            SelectedColor = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            SelectedColor = new SolidColorBrush(Color.FromRgb(5, 156, 250));
             MovingMode = false;
             ViewModelMediator.RegisterToViewModelEvent(ViewModelMediator.ViewModelEvent.DrawingStarted, DrawingStartedEventhandler);
             ViewModelMediator.RegisterToViewModelEvent(ViewModelMediator.ViewModelEvent.DrawingEnded, DrawingEndedEventhandler);
@@ -85,6 +86,14 @@ namespace BasicShapePaint.ViewModels
             set
             {
                 movingMode = value;
+                if (movingMode)
+                {
+                    Mouse.OverrideCursor = Cursors.SizeAll;
+                }
+                else
+                {
+                    Mouse.OverrideCursor = Cursors.Arrow;
+                }
                 ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.MovingModeChanged);
                 NotifyPropertyChanged(nameof(MovingMode));
             }
@@ -96,10 +105,16 @@ namespace BasicShapePaint.ViewModels
 
         private void ChooseColorCommandRequested()
         {
-            System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
-            colorDialog.AllowFullOpen = true;
-            colorDialog.FullOpen = true;
-            colorDialog.SolidColorOnly = true;
+            if (colorDialog == null)
+            {
+                colorDialog = new System.Windows.Forms.ColorDialog();
+                colorDialog.AllowFullOpen = true;
+                colorDialog.FullOpen = true;
+                colorDialog.SolidColorOnly = true;
+            }
+
+            colorDialog.Color = System.Drawing.Color.FromArgb(255, (SelectedColor as SolidColorBrush).Color.R,
+                (SelectedColor as SolidColorBrush).Color.G, (SelectedColor as SolidColorBrush).Color.B);
             if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SelectedColor = new SolidColorBrush(Color.FromRgb(

@@ -17,7 +17,7 @@
                 {ShapeType.Line, "Icons/line.png" },
                 {ShapeType.Rectangle, "Icons/rectangle.png" },
                 {ShapeType.Ellipse, "Icons/ellipse.png" },
-                {ShapeType.FreeHand, "Icons/perspective.png" },
+                {ShapeType.FreeHand, "Icons/pen.png" },
             });
 
         #endregion Private Fields

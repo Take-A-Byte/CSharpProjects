@@ -129,5 +129,18 @@
       <Name>BasicShapePaint.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\arrows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\direct-selection.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\fill.png" />
+    <Resource Include="Icons\pen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\color-palette.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

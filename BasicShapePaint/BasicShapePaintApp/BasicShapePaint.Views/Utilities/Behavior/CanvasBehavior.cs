@@ -47,6 +47,7 @@
 
         private BasicShapePaint.Utilities.CanvasPoint ConvertMouseCoordinate(System.Windows.Input.MouseEventArgs e)
         {
+            e.Handled = false;
             return new BasicShapePaint.Utilities.CanvasPoint(e, AssociatedObject);
         }
 
