@@ -134,7 +134,11 @@
 
         private void MouseMovedOnCanvas(CanvasPoint mouseCoordinate)
         {
-            PreviewMouseMove(mouseCoordinate.GetRelativePosition(shape));
+            Point relativePoint = mouseCoordinate.GetRelativePosition(shape);
+            if (Shape is Line || !(relativePoint.X > 0 && relativePoint.Y > 0))
+            {
+                PreviewMouseMove(relativePoint);
+            }
         }
 
         private void Shape_PreviewMouseMove(object sender, MouseEventArgs e)

@@ -39,6 +39,16 @@
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MovingMode}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
             </ComboBox>
 
             <Button x:Name="ColorPicker" Margin="5" VerticalAlignment="Stretch" Width="45"
@@ -68,8 +78,8 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="Move" Margin="5" VerticalAlignment="Stretch" Width="45"
-                    BorderThickness="3" attachedProperties:AP_IsChecked.IsChecked="{Binding MovingMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <Button x:Name="Move" Margin="5" VerticalAlignment="Stretch" Width="45" BorderThickness="3"
+                    attachedProperties:AP_IsChecked.IsChecked="{Binding MovingMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="Red" />

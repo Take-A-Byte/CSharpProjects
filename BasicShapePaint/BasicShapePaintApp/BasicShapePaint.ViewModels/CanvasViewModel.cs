@@ -197,10 +197,10 @@
                     }
                 }
             }
-            else
-            {
-                MouseMovedOnCanvas?.Invoke(mouseCoordinate);
-            }
+            //else
+            //{
+            MouseMovedOnCanvas?.Invoke(mouseCoordinate);
+            //}
         }
 
         #endregion Public Methods
