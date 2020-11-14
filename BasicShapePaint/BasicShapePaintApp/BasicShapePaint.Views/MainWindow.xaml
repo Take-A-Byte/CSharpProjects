@@ -10,8 +10,8 @@
         xmlns:attachedProperties="clr-namespace:BasicShapePaint.Views.Utilities.AttachedProperties"
         xmlns:utilities="clr-namespace:BasicShapePaint.Views.Utilities"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        mc:Ignorable="d"
-        Title="Shape Paint" Height="450" Width="800">
+        mc:Ignorable="d" WindowState="Maximized"
+        Title="Shape Paint" MinHeight="450" MinWidth="800">
     <Window.Resources>
         <ObjectDataProvider x:Key="enumValues"
                             MethodName="GetValues" ObjectType="{x:Type system:Enum}">
@@ -21,14 +21,18 @@
         </ObjectDataProvider>
         <utilities:ShapeTypeToIconConverter x:Key="shapeToIconConverter" />
     </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="2" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        <Border CornerRadius="10,10,10,10" Grid.Row="2" Margin="7"
+                BorderBrush="MidnightBlue" BorderThickness="3" Background="LightBlue" >
         <ItemsControl DataContext="{Binding CanvasVM}" ItemsSource="{Binding Shapes}"
-                      Background="LightGray" Grid.Row="2">
+                      Grid.Row="2" Background="Transparent" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />
@@ -43,7 +47,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border>
-                        <ContentControl Content="{Binding Shape}" />
+                        <ContentControl Content="{Binding Shape}"/>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -51,19 +55,22 @@
                 <behaviors:CanvasBehavior />
             </interactivity:Interaction.Behaviors>
         </ItemsControl>
-
+        </Border>
+        
         <Rectangle Fill="DarkGray" Grid.Row="1" />
 
-        <StackPanel Orientation="Horizontal" DataContext="{Binding MenuBarVM}"
+        <StackPanel x:Name="MenuBar"
+                    Orientation="Horizontal" DataContext="{Binding MenuBarVM}"
                     Background="GhostWhite">
-            <ComboBox Width="60"
-                      Margin="5" HorizontalAlignment="Left" Background="WhiteSmoke"
+            <ComboBox Width="60" Margin="5" 
+                      HorizontalAlignment="Left" Background="WhiteSmoke"
                       ItemsSource="{Binding Source={StaticResource enumValues}}"
                       SelectedItem="{Binding SelectedShapeType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="36" Height="36">
-                            <Image Source="{Binding .,Converter={StaticResource shapeToIconConverter}}">
+                            <Image Source="{Binding .,Converter={StaticResource shapeToIconConverter}}"
+                                    ToolTip="{Binding .}">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Style.Setters>
@@ -98,7 +105,7 @@
             </ComboBox>
 
             <Button x:Name="ColorPicker" Margin="5" VerticalAlignment="Stretch" Width="50"
-                    BorderThickness="1" Command="{Binding ChooseColorCommand}">
+                    BorderThickness="1" Command="{Binding ChooseColorCommand}" ToolTip="Color Picker">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Triggers>
@@ -125,11 +132,10 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="Move" Margin="5" VerticalAlignment="Stretch" Width="45" BorderThickness="3"
+            <Button x:Name="Move" Margin="5" VerticalAlignment="Stretch" Width="45" BorderThickness="1" ToolTip="Move Drawing"
                     attachedProperties:AP_IsChecked.IsChecked="{Binding MovingMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="BorderBrush" Value="Red" />
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -148,7 +154,7 @@
                                 <Setter Property="Opacity" Value="0.3" />
                             </Trigger>
                             <Trigger Property="attachedProperties:AP_IsChecked.IsChecked" Value="True">
-                                <Setter Property="BorderBrush" Value="green" />
+                                <Setter Property="Background" Value="LightGreen" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
