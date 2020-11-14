@@ -116,7 +116,9 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Red" BorderThickness="1" Width="{Binding Width}" Height="{Binding Height}" />
+                    <Border>
+                        <ContentControl Content="{Binding Shape}" />
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <interactivity:Interaction.Behaviors>

@@ -76,13 +76,21 @@
                 eventSubscribers[vmEvent].Add(handler);
             }
 
+            public static void UnregisterToViewModelEvent(ViewModelEvent vmEvent, EmptyEventHandler handler)
+            {
+                if (eventSubscribers[vmEvent].Contains(handler))
+                {
+                    eventSubscribers[vmEvent].Remove(handler);
+                }
+            }
+
             public static void RaiseViewModelEvent(BaseViewModel invoker, ViewModelEvent vmEvent)
             {
                 if (eventOwners[vmEvent] == invoker.GetType())
                 {
-                    foreach (var subscriber in eventSubscribers[vmEvent])
+                    for (int subscriberIndex = 0; subscriberIndex < eventSubscribers[vmEvent].Count; subscriberIndex++)
                     {
-                        subscriber();
+                        eventSubscribers[vmEvent][subscriberIndex]();
                     }
                 }
             }
