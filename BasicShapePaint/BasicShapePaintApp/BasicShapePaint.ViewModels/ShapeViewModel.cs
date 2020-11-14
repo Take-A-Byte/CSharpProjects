@@ -58,7 +58,7 @@
                     }
                     else
                     {
-                        if (Shape is Line)
+                        if (Shape is Line || Shape is Polyline)
                         {
                             shape.Stroke = shapeBrush;
                         }
@@ -101,7 +101,7 @@
         {
             ViewModelMediator.UnregisterToViewModelEvent(
                 ViewModelMediator.ViewModelEvent.DrawingEnded, DrawingEndedEventHandler);
-            if (!(Shape is Line))
+            if (!(Shape is Line || Shape is Polyline))
             {
                 shape.Fill = ViewModelMediator.SelectedColor;
                 shape.Stroke = new SolidColorBrush(Color.FromRgb(0, 0, 0));
@@ -135,7 +135,7 @@
         private void MouseMovedOnCanvas(CanvasPoint mouseCoordinate)
         {
             Point relativePoint = mouseCoordinate.GetRelativePosition(shape);
-            if (Shape is Line || !(relativePoint.X > 0 && relativePoint.Y > 0))
+            if (Shape is Line || Shape is Polyline || !(relativePoint.X > 0 && relativePoint.Y > 0))
             {
                 PreviewMouseMove(relativePoint);
             }

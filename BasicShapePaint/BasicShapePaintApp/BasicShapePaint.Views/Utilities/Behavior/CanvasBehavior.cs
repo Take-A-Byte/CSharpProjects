@@ -36,6 +36,8 @@
             {
                 AssociatedObject.PreviewMouseLeftButtonUp +=
                     (s, e) => handlerVM.LeftMouseUpEventHandler(ConvertMouseCoordinate(e));
+                AssociatedObject.PreviewMouseLeftButtonDown +=
+                    (s, e) => handlerVM.LeftMouseDownEventHandler(ConvertMouseCoordinate(e));
                 AssociatedObject.PreviewMouseMove +=
                     (s, e) => handlerVM.MouseMoveEventHandler(ConvertMouseCoordinate(e));
                 AssociatedObject.PreviewMouseRightButtonUp +=

@@ -6,6 +6,8 @@
 
         void LeftMouseUpEventHandler(CanvasPoint mouseCoordinate);
 
+        void LeftMouseDownEventHandler(CanvasPoint mouseCoordinate);
+
         void RightMouseUpEventHandler(CanvasPoint mouseCoordinate);
 
         void MouseMoveEventHandler(CanvasPoint mouseCoordinate);

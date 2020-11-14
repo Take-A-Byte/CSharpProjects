@@ -66,7 +66,7 @@
 
         public void LeftMouseUpEventHandler(CanvasPoint mouseCoordinate)
         {
-            if (!ViewModelMediator.MovingMode)
+            if (!ViewModelMediator.MovingMode && ViewModelMediator.SelectedShapeType != ShapeType.FreeHand)
             {
                 if (firstPoint == null)
                 {
@@ -133,6 +133,22 @@
             }
         }
 
+        public void LeftMouseDownEventHandler(CanvasPoint mouseCoordinate)
+        {
+            if (!ViewModelMediator.MovingMode && ViewModelMediator.SelectedShapeType == ShapeType.FreeHand)
+            {
+                ViewModelMediator.RaiseViewModelEvent(this, ViewModelMediator.ViewModelEvent.DrawingStarted);
+                drawn = false;  // new drawing started
+                ShapeViewModel shapeVM = CreateShapeVM();
+                if (shapeVM.Shape is Polyline polyLine)
+                {
+                    polyLine.Points.Add(new System.Windows.Point(mouseCoordinate.AbsolutePoint.X, mouseCoordinate.AbsolutePoint.Y));
+                }
+
+                Shapes.Add(shapeVM);
+            }
+        }
+
         public void RightMouseUpEventHandler(CanvasPoint mouseCoordinate)
         {
             Reset();
@@ -144,7 +160,14 @@
             {
                 var shape = Shapes.Last().Shape;
 
-                if (shape is Line line && firstPoint != null)
+                if (shape is Polyline polyline)
+                {
+                    if (mouseCoordinate.LeftMouseButtonPressed)
+                    {
+                        polyline.Points.Add(new System.Windows.Point(mouseCoordinate.AbsolutePoint.X, mouseCoordinate.AbsolutePoint.Y));
+                    }
+                }
+                else if (shape is Line line && firstPoint != null)
                 {
                     line.X2 = mouseCoordinate.AbsolutePoint.X;
                     line.Y2 = mouseCoordinate.AbsolutePoint.Y;
@@ -197,10 +220,10 @@
                     }
                 }
             }
-            //else
-            //{
-            MouseMovedOnCanvas?.Invoke(mouseCoordinate);
-            //}
+            else
+            {
+                MouseMovedOnCanvas?.Invoke(mouseCoordinate);
+            }
         }
 
         #endregion Public Methods
@@ -214,7 +237,8 @@
             {
                 ShapeType.Rectangle => new ShapeViewModel(new Rectangle()),
                 ShapeType.Ellipse => new ShapeViewModel(new Ellipse()),
-                ShapeType.Line => new ShapeViewModel(new Line())
+                ShapeType.Line => new ShapeViewModel(new Line()),
+                ShapeType.FreeHand => new ShapeViewModel(new Polyline())
             };
 
             return shapeVM;

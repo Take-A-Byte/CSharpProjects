@@ -25,6 +25,8 @@
 
         public Point AbsolutePoint { get; }
 
+        public bool LeftMouseButtonPressed { get => args.LeftButton == MouseButtonState.Pressed; }
+
         #endregion Public Properties
 
         #region Public Methods

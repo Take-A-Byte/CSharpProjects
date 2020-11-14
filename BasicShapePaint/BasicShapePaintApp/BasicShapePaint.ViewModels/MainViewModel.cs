@@ -4,7 +4,8 @@
     {
         Line,
         Rectangle,
-        Ellipse
+        Ellipse,
+        FreeHand
     }
 
     public class MainViewModel : BaseViewModel
