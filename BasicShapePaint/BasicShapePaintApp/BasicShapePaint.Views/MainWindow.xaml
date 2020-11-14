@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:interactivity ="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:BasicShapePaint.Views"
-        xmlns:viewModels="clr-namespace:BasicShapePaint.ViewModels;assembly=BasicShapePaint.ViewModels"
+        xmlns:appUtilities="clr-namespace:BasicShapePaint.Utilities;assembly=BasicShapePaint.Utilities"
         xmlns:behaviors="clr-namespace:BasicShapePaint.Views.Utilities.Behavior"
         xmlns:attachedProperties="clr-namespace:BasicShapePaint.Views.Utilities.AttachedProperties"
         xmlns:utilities="clr-namespace:BasicShapePaint.Views.Utilities"
@@ -16,53 +16,53 @@
         <ObjectDataProvider x:Key="enumValues"
                             MethodName="GetValues" ObjectType="{x:Type system:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="viewModels:ShapeType" />
+                <x:Type TypeName="appUtilities:ShapeType" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <utilities:ShapeTypeToIconConverter x:Key="shapeToIconConverter" />
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="2" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <Border CornerRadius="10,10,10,10" Grid.Row="2" Margin="7"
-                BorderBrush="MidnightBlue" BorderThickness="3" Background="LightBlue" >
-        <ItemsControl DataContext="{Binding CanvasVM}" ItemsSource="{Binding Shapes}"
-                      Grid.Row="2" Background="Transparent" >
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style>
-                    <Setter Property="Canvas.Left" Value="{Binding X}" />
-                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border>
-                        <ContentControl Content="{Binding Shape}"/>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <interactivity:Interaction.Behaviors>
-                <behaviors:CanvasBehavior />
-            </interactivity:Interaction.Behaviors>
-        </ItemsControl>
+                BorderBrush="MidnightBlue" BorderThickness="3" Background="LightBlue">
+            <ItemsControl DataContext="{Binding CanvasVM}" ItemsSource="{Binding Shapes}"
+                      Grid.Row="2" Background="Transparent">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Canvas.Left" Value="{Binding X}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <ContentControl Content="{Binding Shape}" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:CanvasBehavior />
+                </interactivity:Interaction.Behaviors>
+            </ItemsControl>
         </Border>
-        
+
         <Rectangle Fill="DarkGray" Grid.Row="1" />
 
         <StackPanel x:Name="MenuBar"
                     Orientation="Horizontal" DataContext="{Binding MenuBarVM}"
                     Background="GhostWhite">
-            <ComboBox Width="60" Margin="5" 
+            <ComboBox Width="60" Margin="5"
                       HorizontalAlignment="Left" Background="WhiteSmoke"
                       ItemsSource="{Binding Source={StaticResource enumValues}}"
                       SelectedItem="{Binding SelectedShapeType}">
@@ -74,16 +74,16 @@
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Style.Setters>
-                                            <Setter Property="Width" Value="24"/>
-                                            <Setter Property="Height" Value="24"/>
+                                            <Setter Property="Width" Value="24" />
+                                            <Setter Property="Height" Value="24" />
                                         </Style.Setters>
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Width" Value="30"/>
-                                                <Setter Property="Height" Value="30"/>
+                                                <Setter Property="Width" Value="30" />
+                                                <Setter Property="Height" Value="30" />
                                             </Trigger>
                                             <Trigger Property="IsEnabled" Value="False">
-                                                <Setter Property="Opacity" Value="0.4"/>
+                                                <Setter Property="Opacity" Value="0.4" />
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -126,9 +126,9 @@
                     </Grid.ColumnDefinitions>
                     <Image Source="Icons/color-palette.png" Width="24" Margin="0,0,2,2" />
                     <Rectangle Fill="{Binding SelectedColor}" Grid.Column="1"
-                                    Height="45" Width="8" VerticalAlignment="Top"/>
+                                    Height="45" Width="8" VerticalAlignment="Top" />
                     <Rectangle Fill="Gray" Grid.Column="1"
-                                    Height="45" Width="1" HorizontalAlignment="Left"/>
+                                    Height="45" Width="1" HorizontalAlignment="Left" />
                 </Grid>
             </Button>
 

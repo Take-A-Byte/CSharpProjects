@@ -91,6 +91,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BasicShapePaint.ViewModels\BasicShapePaint.ViewModels.csproj">
+      <Project>{71c44e30-3ad2-4071-aa78-4544107aeed6}</Project>
+      <Name>BasicShapePaint.ViewModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BasicShapePaint.Views\BasicShapePaint.Views.csproj">
       <Project>{4148a9d1-1d88-4c63-963d-99f975b75cb0}</Project>
       <Name>BasicShapePaint.Views</Name>

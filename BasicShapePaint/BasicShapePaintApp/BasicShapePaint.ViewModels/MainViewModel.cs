@@ -1,14 +1,9 @@
 ﻿namespace BasicShapePaint.ViewModels
 {
-    public enum ShapeType
-    {
-        Line,
-        Rectangle,
-        Ellipse,
-        FreeHand
-    }
+    using BasicShapePaint.Utilities.APIs;
+    using System.ComponentModel;
 
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel, IMainViewModel
     {
         #region Public Constructors
 
@@ -22,9 +17,9 @@
 
         #region Public Properties
 
-        public BaseViewModel MenuBarVM { get; }
+        public INotifyPropertyChanged MenuBarVM { get; }
 
-        public BaseViewModel CanvasVM { get; }
+        public INotifyPropertyChanged CanvasVM { get; }
 
         #endregion Public Properties
     }

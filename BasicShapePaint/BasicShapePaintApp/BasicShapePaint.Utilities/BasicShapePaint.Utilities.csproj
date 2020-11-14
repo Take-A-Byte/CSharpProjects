@@ -48,10 +48,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIs\IMainViewModel.cs" />
     <Compile Include="APIs\IMouseEventHandlerVM.cs" />
     <Compile Include="CanvasPoint.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShapeTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

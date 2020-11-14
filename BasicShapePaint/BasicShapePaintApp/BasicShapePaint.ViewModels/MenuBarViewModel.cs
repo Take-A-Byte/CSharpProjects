@@ -1,11 +1,11 @@
-﻿using BasicShapePaint.ViewModels.Utilities;
-using System;
-using System.Windows.Input;
-using System.Windows.Media;
-
-namespace BasicShapePaint.ViewModels
+﻿namespace BasicShapePaint.ViewModels
 {
-    internal class MenuBarViewModel : BaseViewModel
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using BasicShapePaint.Utilities;
+    using BasicShapePaint.ViewModels.Utilities;
+
+    public class MenuBarViewModel : BaseViewModel
     {
         #region Private Fields
 

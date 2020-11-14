@@ -10,7 +10,7 @@
     using System.Collections.Specialized;
     using static BasicShapePaint.ViewModels.Utilities.MiscellaneousUtilities;
 
-    internal class CanvasViewModel : BaseViewModel, IMouseEventHandlerVM
+    public class CanvasViewModel : BaseViewModel, IMouseEventHandlerVM
     {
         #region Private Fields
 

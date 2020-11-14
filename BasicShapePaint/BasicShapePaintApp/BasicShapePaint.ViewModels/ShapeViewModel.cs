@@ -1,13 +1,12 @@
 ﻿namespace BasicShapePaint.ViewModels
 {
-    using BasicShapePaint.Utilities;
-    using System;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Shapes;
+    using BasicShapePaint.Utilities;
     using static BasicShapePaint.ViewModels.Utilities.MiscellaneousUtilities;
 
-    internal class ShapeViewModel : BaseViewModel
+    public class ShapeViewModel : BaseViewModel
     {
         #region Private Fields
 

@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
@@ -116,20 +119,6 @@
     <Resource Include="Icons\rectangle.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BasicShapePaint.APIs\BasicShapePaint.Utilities.csproj">
-      <Project>{dc59c324-ecf0-4148-9da9-564f44aae9ed}</Project>
-      <Name>BasicShapePaint.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BasicShapePaint.Models\BasicShapePaint.Models.csproj">
-      <Project>{180f6d58-22e9-4940-9bec-a5df2ed69a10}</Project>
-      <Name>BasicShapePaint.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BasicShapePaint.ViewModels\BasicShapePaint.ViewModels.csproj">
-      <Project>{71c44e30-3ad2-4071-aa78-4544107aeed6}</Project>
-      <Name>BasicShapePaint.ViewModels</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\arrows.png" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\color-palette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BasicShapePaint.Utilities\BasicShapePaint.Utilities.csproj">
+      <Project>{dc59c324-ecf0-4148-9da9-564f44aae9ed}</Project>
+      <Name>BasicShapePaint.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

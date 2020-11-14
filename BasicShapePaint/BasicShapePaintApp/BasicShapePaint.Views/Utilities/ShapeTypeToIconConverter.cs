@@ -1,11 +1,11 @@
 ﻿namespace BasicShapePaint.Views.Utilities
 {
-    using BasicShapePaint.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Windows.Data;
+    using BasicShapePaint.Utilities;
 
     internal class ShapeTypeToIconConverter : IValueConverter
     {
