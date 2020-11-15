@@ -3,21 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Views", "Messaging_Client.Views\Messaging_Client.Views.csproj", "{2416B871-9E15-4DAA-801D-8717ACF8571C}"
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Views", "MessagingViews\Messaging_Client.Views.csproj", "{2416B871-9E15-4DAA-801D-8717ACF8571C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.ViewModels", "Messaging_Client.ViewModels\Messaging_Client.ViewModels.csproj", "{0959B0FA-825D-4DCE-A6DC-F876B2722BFD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.ViewModels", "Messaging.ViewModels\Messaging_Client.ViewModels.csproj", "{0959B0FA-825D-4DCE-A6DC-F876B2722BFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Models", "Messaging_Client.Models\Messaging_Client.Models.csproj", "{B9E45FB7-3065-4C5A-A772-497909D06D32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Models", "Messaging.Models\Messaging_Client.Models.csproj", "{B9E45FB7-3065-4C5A-A772-497909D06D32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Core", "Messaging_Client.Core\Messaging_Client.Core.csproj", "{EB13E8D8-6745-4CDE-90CF-07F95E89911C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.UnitTest", "Messaging.UnitTest\Messaging_Client.UnitTest.csproj", "{42CD0773-9255-4A91-83B6-02C08D0DF54F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.UnitTest", "Messaging_Client.UnitTest\Messaging_Client.UnitTest.csproj", "{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Interfaces", "Messaging_Client.Interfaces\Messaging_Client.Interfaces.csproj", "{C25721B2-8D4D-4A42-8805-F72DEB435F7B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.PacketFactory", "Messaging_Client.PacketFactory\Messaging_Client.PacketFactory.csproj", "{193E17EF-2C1D-462E-B978-D7CC52F877B7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Utilities", "Messaging_Client.Utilities\Messaging_Client.Utilities.csproj", "{E1E32D78-EE9D-485A-8089-87B5DA923EBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Core", "Messaging.Core\Messaging_Client.Core.csproj", "{EB13E8D8-6745-4CDE-90CF-07F95E89911C}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,26 +33,14 @@ Global
 		{B9E45FB7-3065-4C5A-A772-497909D06D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9E45FB7-3065-4C5A-A772-497909D06D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9E45FB7-3065-4C5A-A772-497909D06D32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42CD0773-9255-4A91-83B6-02C08D0DF54F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42CD0773-9255-4A91-83B6-02C08D0DF54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42CD0773-9255-4A91-83B6-02C08D0DF54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42CD0773-9255-4A91-83B6-02C08D0DF54F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB13E8D8-6745-4CDE-90CF-07F95E89911C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB13E8D8-6745-4CDE-90CF-07F95E89911C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB13E8D8-6745-4CDE-90CF-07F95E89911C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB13E8D8-6745-4CDE-90CF-07F95E89911C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8EC4E3D-FB33-41F7-9ECB-B059F51ADA4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C25721B2-8D4D-4A42-8805-F72DEB435F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C25721B2-8D4D-4A42-8805-F72DEB435F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C25721B2-8D4D-4A42-8805-F72DEB435F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C25721B2-8D4D-4A42-8805-F72DEB435F7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{193E17EF-2C1D-462E-B978-D7CC52F877B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{193E17EF-2C1D-462E-B978-D7CC52F877B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{193E17EF-2C1D-462E-B978-D7CC52F877B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{193E17EF-2C1D-462E-B978-D7CC52F877B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1E32D78-EE9D-485A-8089-87B5DA923EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1E32D78-EE9D-485A-8089-87B5DA923EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1E32D78-EE9D-485A-8089-87B5DA923EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1E32D78-EE9D-485A-8089-87B5DA923EBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
