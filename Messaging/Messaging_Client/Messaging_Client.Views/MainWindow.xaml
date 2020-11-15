@@ -1,0 +1,85 @@
+﻿<Window x:Class="Messaging_Client.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MessagingViews"
+        Background="{StaticResource Background}" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" Height="600" Width="400"
+        Title="Messanger">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="0.25" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.5" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <!--Chat Title Area-->
+        <Border Background="{StaticResource Panel1}"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        <Rectangle x:Name="DisplayPicture"
+                   RadiusX="25" RadiusY="25"
+                   Height="50" Width="50"
+                   Fill="FloralWhite" Margin="10,0"
+                   HorizontalAlignment="Left" />
+        <!--Chat Title Area End-->
+
+        <ContentControl Template="{StaticResource Separator}"
+                        Grid.Row="1" />
+
+        <!--Message Area-->
+        <StackPanel x:Name="MessageArea" Grid.Row="2">
+            <ContentControl Template="{StaticResource TheirMessageTemplate}" />
+            <ContentControl Template="{StaticResource MyMessageTemplate}" />
+        </StackPanel>
+        <!--Message Area End-->
+
+        <ContentControl Template="{StaticResource Separator}"
+                        Grid.Row="3" />
+
+        <!--Send Text Area-->
+        <Border x:Name="SendTextAreaBackground"
+                Background="{StaticResource Panel2}" Grid.Row="4"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        <Rectangle RadiusX="18" RadiusY="18"
+                   Width="325" Height="36" Margin="6,0"
+                   Grid.Row="4" Fill="WhiteSmoke"
+                   HorizontalAlignment="Left" />
+        <Border CornerRadius="18" Background="WhiteSmoke"
+                Width="40" Height="36" Grid.Row="4"
+                Margin="6,0" HorizontalAlignment="Right" />
+        <Button x:Name="SendButton"
+                Command="{Binding SendMessageCommand}" Grid.Row="4"
+                Content="S" Width="40" Height="36" Margin="6,0"
+                HorizontalAlignment="Right" Focusable="False">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontSize" Value="18" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Beige" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="FontSize" Value="12" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border CornerRadius="18" Background="{TemplateBinding Background}"
+                            Width="40" Height="36"
+                            HorizontalAlignment="Right" />
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   Foreground="Red" FontSize="{TemplateBinding FontSize}" FontWeight="Bold"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <!--Send Text Area End-->
+    </Grid>
+</Window>

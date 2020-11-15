@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1209
 MinimumVisualStudioVersion = 10.0.40219.1
+
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Views", "MessagingViews\Messaging_Client.Views.csproj", "{2416B871-9E15-4DAA-801D-8717ACF8571C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.ViewModels", "Messaging.ViewModels\Messaging_Client.ViewModels.csproj", "{0959B0FA-825D-4DCE-A6DC-F876B2722BFD}"
@@ -12,6 +13,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.UnitTest", "Messaging.UnitTest\Messaging_Client.UnitTest.csproj", "{42CD0773-9255-4A91-83B6-02C08D0DF54F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging_Client.Core", "Messaging.Core\Messaging_Client.Core.csproj", "{EB13E8D8-6745-4CDE-90CF-07F95E89911C}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
