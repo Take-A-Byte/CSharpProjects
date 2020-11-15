@@ -4,6 +4,7 @@
     using System.Net;
     using System.Net.Sockets;
     using System.Threading;
+    using System.Threading.Tasks;
     using Messaging.Core.Interfaces;
     using Messaging_Client.Interfaces;
     using Messaging_Client.Utilities;
@@ -16,6 +17,16 @@
         private TcpClient client;
 
         #endregion Private Fields
+
+        #region Public Constructors
+
+        public TCPClientSocket()
+        {
+            client = new TcpClient();
+            new Task(() => ListenToAllUsers());
+        }
+
+        #endregion Public Constructors
 
         #region Public Properties
 
@@ -35,7 +46,6 @@
         {
             try
             {
-                client = new TcpClient();
                 client.Connect(serverEndPoint);
                 new Thread(() => { StartListening(); }).Start();
             }
@@ -101,6 +111,14 @@
                 ReceivedDataEventArgs args = new ReceivedDataEventArgs(buffer.SubArray(0, length));
                 ReceivedData?.Invoke(this, args);
             }
+        }
+
+        private void ListenToAllUsers()
+        {
+            string hostName = Dns.GetHostName(); // Retrive the Name of HOST
+            IPAddress myIP = IPAddress.Parse(Dns.GetHostByName(hostName).AddressList[0].ToString());
+
+            client.Connect(new IPEndPoint(myIP, 0));
         }
 
         #endregion Private Methods

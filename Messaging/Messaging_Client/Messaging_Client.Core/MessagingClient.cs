@@ -65,11 +65,31 @@
             return successful;
         }
 
+        public bool ConnectToUser(string userName)
+        {
+            try
+            {
+                IServiceUser user = serviceUsers.Where(serviceuser => serviceuser.Name == userName).First();
+                clientSocket.ConnectToServer(
+                    new IPEndPoint(user.MessagingSocket.IPAddress, user.MessagingSocket.PortNumber));
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool SendMessage(IMessage message)
         {
             return true;
             //return clientSocket.SendData(packetFactory.CreateMessagePacket(message).ToByte());
         }
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private void ClientSocket_ReceivedData(object sender, System.EventArgs e)
         {
@@ -84,6 +104,6 @@
             }
         }
 
-        #endregion Public Methods
+        #endregion Private Methods
     }
 }
